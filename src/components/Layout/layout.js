@@ -4,10 +4,12 @@ import Sidebar from "./Sidebar/sidebar.js";
 function Layout({ children }) {
 	return (
 		<>
-			<div className="flex">
+			<div className="flex w-full">
 				<Sidebar />
-				{children}
-				<Header />
+				<div className="flex flex-col w-full p-7">
+					<Header />
+					{children}
+				</div>
 			</div>
 		</>
 	);

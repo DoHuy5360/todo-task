@@ -11,7 +11,13 @@ function StatusColumn({ name, amountCard, children }) {
 					<AiOutlinePlus />
 				</div>
 			</div>
-			<div className="flex flex-col gap-2 overflow-y-scroll h-full pb-2">{children}</div>
+			<div
+				className="flex flex-col gap-2 overflow-y-scroll h-full
+				scrollbar hover:scrollbar-thumb-slate-400 scrollbar-track-transparent scrollbar-thin
+				scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+			>
+				{children}
+			</div>
 		</div>
 	);
 }

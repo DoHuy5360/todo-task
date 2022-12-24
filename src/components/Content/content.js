@@ -15,16 +15,16 @@ function Content() {
 			</div>
 			<div className="flex gap-4 h-full">
 				<StatusColumn name="Todo" amountCard="32">
-					<Card title="123" description="Lorem text"></Card>
-					<Card title="123" description="Lorem text"></Card>
+					<Card title="123a" description="Lorem text"></Card>
+					<Card title="123b" description="Lorem text"></Card>
 				</StatusColumn>
 				<StatusColumn name="In Progress" amountCard="41">
-					<Card title="456" description="Lorem text"></Card>
-					<Card title="456" description="Lorem text"></Card>
+					<Card title="456a" description="Lorem text"></Card>
+					<Card title="456b" description="Lorem text"></Card>
 				</StatusColumn>
 				<StatusColumn name="Completed" amountCard="51">
-					<Card title="789" description="Lorem text"></Card>
-					<Card title="789" description="Lorem text"></Card>
+					<Card title="789a" description="Lorem text"></Card>
+					<Card title="789b" description="Lorem text"></Card>
 				</StatusColumn>
 			</div>
 		</div>

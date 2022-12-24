@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 function StatusColumn({ name, amountCard, children }) {
 	useEffect(() => {
@@ -13,13 +13,24 @@ function StatusColumn({ name, amountCard, children }) {
 				field.classList.remove("bg-slate-100");
 			});
 			field.addEventListener("drop", (e) => {
+				const cards = field.querySelectorAll(".card:not(#grabbingCard)");
 				const grabbingCard = document.getElementById("grabbingCard");
+				cards.forEach((card) => {
+					const cardIndex = card.getBoundingClientRect();
+					const orderIndex = e.clientY - cardIndex.top - cardIndex.height / 2;
+					if (orderIndex < 0) {
+						field.insertBefore(grabbingCard, card);
+						console.log(1);
+					} else {
+						field.appendChild(grabbingCard);
+						console.log(2);
+					}
+				});
 				field.appendChild(grabbingCard);
 				field.classList.remove("bg-slate-100");
 			});
 		});
 	}, []);
-
 	return (
 		<div className="flex flex-col gap-2 bg-slate-300 w-full p-2 rounded h-[560px] pb-4 overflow-hidden">
 			<div className="select-none">

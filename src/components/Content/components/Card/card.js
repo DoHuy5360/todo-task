@@ -26,7 +26,7 @@ function Card({ title, description }) {
 				});
 			});
 			card.addEventListener("dragend", (e) => {
-				originCard.id = "";
+				originCard.removeAttribute("id");
 				originCard.classList.remove("opacity-0");
 				cloneCard.remove();
 			});

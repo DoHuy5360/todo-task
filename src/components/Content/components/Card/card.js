@@ -2,38 +2,18 @@ import { useRef, useEffect } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
 import { GrAttachment } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
-function Card({ title, description }) {
-	useEffect(() => {
-		let cloneCard;
-		let originCard;
-		const cards = document.querySelectorAll(".card");
-		cards.forEach((card) => {
-			card.addEventListener("dragstart", (e) => {
-				originCard = card;
-				cloneCard = originCard.cloneNode(true);
-				originCard.classList.add("opacity-0");
-				originCard.id = "grabbingCard";
-				originCard.parentNode.appendChild(cloneCard);
-			});
-			card.addEventListener("drag", (e) => {
-				Object.assign(cloneCard.style, {
-					position: "fixed",
-					top: `${e.pageY}px`,
-					left: `${e.pageX}px`,
-					boxShadow: "0 0.125rem 0.25rem #939393",
-					zIndex: 9999,
-					transform: "translate(-100%, -100%)",
-				});
-			});
-			card.addEventListener("dragend", (e) => {
-				originCard.removeAttribute("id");
-				originCard.classList.remove("opacity-0");
-				cloneCard.remove();
-			});
-		});
-	}, []);
+function Card({ title, description, id }) {
+	const card = useRef();
+	function handleDragStart(e) {
+		e.dataTransfer.setData("Text", e.target.id);
+		console.log(`Dragged: %c${title}`, "color: green; font-weight: bold");
+		card.current.classList.add("opacity-0");
+	}
+	function handleDragEnd() {
+		card.current.classList.remove("opacity-0");
+	}
 	return (
-		<div draggable className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
+		<div id={id} ref={card} onDragStart={handleDragStart} onDragEnd={handleDragEnd} draggable className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
 			<div className="flex items-center justify-between gap-2">
 				<div className="flex items-center">
 					<div>

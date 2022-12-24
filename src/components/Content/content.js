@@ -1,5 +1,5 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-import StatusColumn from "./components/StatusColumn/statusColumn.js";
+import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 function Content() {
 	return (
 		<div className="overflow-hidden">

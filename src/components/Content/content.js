@@ -1,5 +1,10 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
+const listColumns = [
+	{ name: "Todo", amountCard: 32 },
+	{ name: "In Progress", amountCard: 452 },
+	{ name: "Completed", amountCard: 1 },
+];
 function Content() {
 	return (
 		<div className="overflow-hidden">
@@ -13,9 +18,9 @@ function Content() {
 				</div>
 			</div>
 			<div className="flex gap-4 h-full">
-				<StatusColumn name="Todo" amountCard="32" id="0"></StatusColumn>
-				<StatusColumn name="In Progress" amountCard="41" id="1"></StatusColumn>
-				<StatusColumn name="Completed" amountCard="51" id="2"></StatusColumn>
+				{listColumns.map((column, idx) => (
+					<StatusColumn name={column.name} amountCard={column.amountCard} key={"column-" + idx} id={idx}></StatusColumn>
+				))}
 			</div>
 		</div>
 	);

@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const listColumns = [
 	{ name: "Todo", amountCard: 32 },
 	{ name: "In Progress", amountCard: 452 },
@@ -22,6 +22,13 @@ export const listCards = [
 ];
 function Content() {
 	const [refresh, setRefresh] = useState(false);
+	const [cards, setCards] = useState([]);
+	useEffect(() => {
+		fetch("http://localhost:4000")
+			.then((res) => res.json())
+			.then((result) => setCards(result));
+		console.log(cards);
+	}, []);
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div className="overflow-hidden">
@@ -37,8 +44,8 @@ function Content() {
 				<div className="flex gap-4 h-full">
 					{listColumns.map((column, colidx) => (
 						<StatusColumn name={column.name} amountCard={column.amountCard} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
-							{listCards.map((card, idx) => {
-								if (card.status === colidx) {
+							{cards.map((card, idx) => {
+								if (card.status == colidx) {
 									return <Card title={card.title} description={card.description} key={"card-" + colidx + "-" + idx} id={"card-" + colidx + "-" + idx} status={card.status} cardId={card.id} index={idx}></Card>;
 								}
 							})}

@@ -2,11 +2,15 @@ import express from "express";
 import mongoose from "mongoose";
 import { addCard } from "./controllers/cardController.js";
 import { index } from "./controllers/indexController.js";
+import cors from "cors";
 
+const corsConfig = {
+	origin: "http://localhost:3000",
+};
 const app = express();
 const PORT = process.env.port || 4000;
 const URL = "mongodb://localhost:27017/todo-task";
-app.get("/", index);
+app.get("/", cors(corsConfig), index);
 app.post("/addCard", addCard);
 
 mongoose

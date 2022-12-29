@@ -1,15 +1,18 @@
 import { useDrop } from "react-dnd";
 import { AiOutlinePlus } from "react-icons/ai";
-import { listCards } from "../../content";
 
 function StatusColumn({ name, amountCard, colId, onRefresh, children }) {
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
-			listCards[item.index].status = colId;
-			onRefresh((pre) => {
-				return pre ? false : true;
-			});
+			console.log(item);
+			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${colId}`).then((res) =>
+				res.status === 200
+					? onRefresh((pre) => {
+							return pre ? false : true;
+					  })
+					: null
+			);
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),

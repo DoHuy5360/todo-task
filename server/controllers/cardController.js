@@ -10,4 +10,12 @@ const addCard = (req, res) => {
 	try {
 	} catch (error) {}
 };
-export { addCard };
+const updateCard = async (req, res) => {
+	// res.send(req.params.id);
+	// res.send(req.query.status);
+	const cardSelected = await todoCardModel.findById(req.params.id);
+	cardSelected.status = req.query.status;
+	cardSelected.save();
+	res.send("Update successfully!");
+};
+export { addCard, updateCard };

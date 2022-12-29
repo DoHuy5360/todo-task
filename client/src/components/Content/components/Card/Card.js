@@ -7,7 +7,7 @@ function Card({ title, description, id, status, cardId, index }) {
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
-			id: cardId,
+			_id: cardId,
 			status,
 			title,
 			description,

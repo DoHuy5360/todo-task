@@ -9,7 +9,6 @@ const index = async (req, res) => {
 		const amountTodoCard = await todoCardModel.countDocuments({ status: "0" });
 		const amountProgressCard = await todoCardModel.countDocuments({ status: "1" });
 		const amountCompleteCard = await todoCardModel.countDocuments({ status: "2" });
-		// dataResult.cards = [getTodoCard, getProgressCard, getCompleteCard];
 
 		dataResult.columns = [
 			{ name: "Todo", amountCard: amountTodoCard, cards: getTodoCard },

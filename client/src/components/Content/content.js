@@ -29,9 +29,9 @@ function Content() {
 				</div>
 				<div className="flex gap-4 h-full">
 					{columns.map((column, colidx) => (
-						<StatusColumn name={column.name} amountCard={column.amountCard} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
+						<StatusColumn {...column} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
 							{column.cards.map((card, idx) => (
-								<Card title={card.title} description={card.description} key={"card-" + colidx + "-" + idx} id={"card-" + colidx + "-" + idx} status={card.status} cardId={card._id} index={idx}></Card>
+								<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} />
 							))}
 						</StatusColumn>
 					))}

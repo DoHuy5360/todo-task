@@ -6,7 +6,7 @@ import Card from "./components/Card/Card.js";
 import { useEffect, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 function Content() {
-	const [refresh, setRefresh] = useState(false);
+	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:4000")
@@ -14,7 +14,7 @@ function Content() {
 			.then((result) => {
 				setColumns(result.columns);
 			});
-	}, [refresh]);
+	}, [content]);
 	const [showDialog, setShowDialog] = useState(false);
 	const [dialogStatus, setDialogStatus] = useState("");
 	return (
@@ -31,7 +31,7 @@ function Content() {
 				</div>
 				<div className="flex gap-4 h-full">
 					{columns.map((column, colidx) => (
-						<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setRefresh={setRefresh} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
+						<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
 							{column.cards.map((card, idx) => (
 								<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} />
 							))}
@@ -39,7 +39,7 @@ function Content() {
 					))}
 				</div>
 			</div>
-			<Dialog statusColumn={dialogStatus} visible={showDialog} setShowDialog={setShowDialog} />
+			<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} />
 		</DndProvider>
 	);
 }

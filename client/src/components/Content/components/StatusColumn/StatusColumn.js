@@ -1,13 +1,13 @@
 import { useDrop } from "react-dnd";
 import { AiOutlinePlus } from "react-icons/ai";
 
-function StatusColumn({ name, amountCard, colId, setRefresh, setShowDialog, setDialogStatus, children }) {
+function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setDialogStatus, children }) {
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
-			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${colId}`).then((res) =>
+			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${name}`).then((res) =>
 				res.status === 200
-					? setRefresh((pre) => {
+					? setContent((pre) => {
 							return pre ? false : true;
 					  })
 					: null

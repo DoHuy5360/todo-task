@@ -17,12 +17,13 @@ function Card({ _id, status, title, description, id, colId }) {
 		}),
 	});
 	function cardCSS(_colId) {
+		const sameClass = " text-3xl";
 		if (colId === 0) {
-			return "text-rose-500";
+			return "text-rose-500" + sameClass;
 		} else if (colId === 1) {
-			return "text-amber-500";
+			return "text-amber-500" + sameClass;
 		} else {
-			return "text-green-500";
+			return "text-green-500" + sameClass;
 		}
 	}
 	return (

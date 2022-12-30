@@ -1,14 +1,18 @@
 import { todoCardModel } from "../database/models/todoCardModel.js";
 
 const addCard = (req, res) => {
-	const addTodoCard = new todoCardModel({
-		status: "0",
-		title: "Test",
-		description: "Tes",
-	});
-	addTodoCard.save();
+	const { status, title, description } = req.body;
 	try {
-	} catch (error) {}
+		const addTodoCard = new todoCardModel({
+			status,
+			title,
+			description,
+		});
+		addTodoCard.save();
+		return res.send("Add successfully!");
+	} catch (error) {
+		return res.send(error);
+	}
 };
 const updateCard = async (req, res) => {
 	// res.send(req.params.id);

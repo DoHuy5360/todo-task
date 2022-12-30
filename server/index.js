@@ -10,8 +10,10 @@ const corsConfig = {
 const app = express();
 const PORT = process.env.port || 4000;
 const URL = "mongodb://localhost:27017/todo-task";
+app.use(express.json());
 app.get("/", cors(corsConfig), index);
-app.post("/add-card", addCard);
+app.options("/add-card", cors(corsConfig), addCard);
+app.post("/add-card", cors(corsConfig), addCard);
 app.get("/update-card/:id/attr", cors(corsConfig), updateCard);
 
 mongoose

@@ -4,18 +4,18 @@ import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
 import { useEffect, useState } from "react";
-const listColumns = [
-	{ name: "Todo", amountCard: 32 },
-	{ name: "In Progress", amountCard: 452 },
-	{ name: "Completed", amountCard: 1 },
-];
+
 function Content() {
 	const [refresh, setRefresh] = useState(false);
+	const [columns, setColumns] = useState([]);
 	const [cards, setCards] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:4000")
 			.then((res) => res.json())
-			.then((result) => setCards(result));
+			.then((result) => {
+				setColumns(result.columns);
+				setCards(result.cards);
+			});
 	}, [refresh]);
 	return (
 		<DndProvider backend={HTML5Backend}>
@@ -30,7 +30,7 @@ function Content() {
 					</div>
 				</div>
 				<div className="flex gap-4 h-full">
-					{listColumns.map((column, colidx) => (
+					{columns.map((column, colidx) => (
 						<StatusColumn name={column.name} amountCard={column.amountCard} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
 							{cards.map((card, idx) => {
 								if (card.status == colidx) {

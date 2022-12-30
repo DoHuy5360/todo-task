@@ -5,7 +5,6 @@ function StatusColumn({ name, amountCard, colId, onRefresh, children }) {
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
-			console.log(item);
 			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${colId}`).then((res) =>
 				res.status === 200
 					? onRefresh((pre) => {

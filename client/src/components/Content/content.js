@@ -8,13 +8,11 @@ import { useEffect, useState } from "react";
 function Content() {
 	const [refresh, setRefresh] = useState(false);
 	const [columns, setColumns] = useState([]);
-	const [cards, setCards] = useState([]);
 	useEffect(() => {
 		fetch("http://localhost:4000")
 			.then((res) => res.json())
 			.then((result) => {
 				setColumns(result.columns);
-				setCards(result.cards);
 			});
 	}, [refresh]);
 	return (
@@ -32,11 +30,9 @@ function Content() {
 				<div className="flex gap-4 h-full">
 					{columns.map((column, colidx) => (
 						<StatusColumn name={column.name} amountCard={column.amountCard} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
-							{cards.map((card, idx) => {
-								if (card.status == colidx) {
-									return <Card title={card.title} description={card.description} key={"card-" + colidx + "-" + idx} id={"card-" + colidx + "-" + idx} status={card.status} cardId={card._id} index={idx}></Card>;
-								}
-							})}
+							{column.cards.map((card, idx) => (
+								<Card title={card.title} description={card.description} key={"card-" + colidx + "-" + idx} id={"card-" + colidx + "-" + idx} status={card.status} cardId={card._id} index={idx}></Card>
+							))}
 						</StatusColumn>
 					))}
 				</div>

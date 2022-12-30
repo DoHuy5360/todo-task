@@ -4,7 +4,7 @@ import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
 import { useEffect, useState } from "react";
-
+import Dialog from "./components/Dialog/Dialog.js";
 function Content() {
 	const [refresh, setRefresh] = useState(false);
 	const [columns, setColumns] = useState([]);
@@ -15,6 +15,8 @@ function Content() {
 				setColumns(result.columns);
 			});
 	}, [refresh]);
+	const [showDialog, setShowDialog] = useState(false);
+	const [dialogStatus, setDialogStatus] = useState("");
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div className="overflow-hidden">
@@ -29,7 +31,7 @@ function Content() {
 				</div>
 				<div className="flex gap-4 h-full">
 					{columns.map((column, colidx) => (
-						<StatusColumn {...column} key={"column-" + colidx} colId={colidx} onRefresh={setRefresh}>
+						<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setRefresh={setRefresh} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
 							{column.cards.map((card, idx) => (
 								<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} />
 							))}
@@ -37,6 +39,7 @@ function Content() {
 					))}
 				</div>
 			</div>
+			<Dialog statusColumn={dialogStatus} visible={showDialog} setShowDialog={setShowDialog} />
 		</DndProvider>
 	);
 }

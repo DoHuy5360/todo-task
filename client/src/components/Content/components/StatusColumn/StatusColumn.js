@@ -1,13 +1,13 @@
 import { useDrop } from "react-dnd";
 import { AiOutlinePlus } from "react-icons/ai";
 
-function StatusColumn({ name, amountCard, colId, onRefresh, children }) {
+function StatusColumn({ name, amountCard, colId, setRefresh, setShowDialog, setDialogStatus, children }) {
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
 			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${colId}`).then((res) =>
 				res.status === 200
-					? onRefresh((pre) => {
+					? setRefresh((pre) => {
 							return pre ? false : true;
 					  })
 					: null
@@ -17,7 +17,6 @@ function StatusColumn({ name, amountCard, colId, onRefresh, children }) {
 			isOver: monitor.isOver(),
 		}),
 	});
-
 	return (
 		<div className="flex flex-col gap-2 bg-slate-300 w-full p-2 rounded h-[560px] pb-4 overflow-hidden">
 			<div className="select-none">
@@ -25,7 +24,13 @@ function StatusColumn({ name, amountCard, colId, onRefresh, children }) {
 					<div>{name}</div>
 					<div>{amountCard}</div>
 				</div>
-				<div className="grid place-items-center p-2 bg-white rounded cursor-pointer">
+				<div
+					onClick={() => {
+						setShowDialog(true);
+						setDialogStatus(name);
+					}}
+					className="grid place-items-center p-2 bg-white rounded cursor-pointer"
+				>
 					<AiOutlinePlus />
 				</div>
 			</div>

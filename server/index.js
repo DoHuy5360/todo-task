@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { addCard, updateCard } from "./controllers/cardController.js";
+import { addCard, updateCard, deleteCard } from "./controllers/cardController.js";
 import { index } from "./controllers/indexController.js";
 import cors from "cors";
 
@@ -15,7 +15,7 @@ app.get("/", cors(corsConfig), index);
 app.options("/add-card", cors(corsConfig), addCard);
 app.post("/add-card", cors(corsConfig), addCard);
 app.get("/update-card/:id/attr", cors(corsConfig), updateCard);
-
+app.delete("/delete-card/:id/delete", cors(corsConfig), deleteCard);
 mongoose
 	.connect(URL)
 	.then(() => {

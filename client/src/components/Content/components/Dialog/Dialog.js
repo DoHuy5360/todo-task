@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 function Dialog({ statusColumn, visible, setContent, setShowDialog }) {
-	// const [cardData, setCardData] = useState({});
 	const cartStatus = useRef();
 	const cartTitle = useRef();
 	const cartDescription = useRef();
@@ -30,7 +29,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog }) {
 					<label className="h-[30%] text-xl select-none" htmlFor="">
 						Title
 					</label>
-					<input ref={cartTitle} className="h-[70%] p-2 outline-none rounded bg-slate-100" type="text" name="" tabIndex="1" />
+					<input ref={cartTitle} className="h-[70%] p-2 outline-none rounded bg-slate-100" type="text" tabIndex="1" required />
 				</div>
 				<div className="flex flex-col h-4/5 gap-1">
 					<label className="h-[10%] text-xl select-none" htmlFor="">

@@ -22,4 +22,10 @@ const updateCard = async (req, res) => {
 	cardSelected.save();
 	res.send("Update successfully!");
 };
-export { addCard, updateCard };
+const deleteCard = async (req, res) => {
+	// res.send(req.params.id);
+	// res.send(req.query.status);
+	await todoCardModel.findByIdAndRemove(req.params.id);
+	res.send("Delete successfully!");
+};
+export { addCard, updateCard, deleteCard };

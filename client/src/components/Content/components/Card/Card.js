@@ -1,9 +1,10 @@
 import { GoPrimitiveDot } from "react-icons/go";
 import { GrAttachment } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
+import { SlOptionsVertical } from "react-icons/sl";
 import { useDrag } from "react-dnd";
-
-function Card({ _id, status, title, description, id, colId }) {
+import { useEffect, useRef, useState } from "react";
+function Card({ _id, status, title, description, id, colId, handleShowContextMenu }) {
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
@@ -27,7 +28,7 @@ function Card({ _id, status, title, description, id, colId }) {
 		}
 	}
 	return (
-		<div id={id} ref={drag} className={(isDragging ? "opacity-50" : "opacity-100") + " card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab"}>
+		<div id={id} ref={drag} onContextMenu={handleShowContextMenu} className={(isDragging ? "opacity-50" : "opacity-100") + " card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab"}>
 			<div className="flex items-center justify-between gap-2">
 				<div className="flex items-center">
 					<div className={cardCSS(colId)}>
@@ -35,8 +36,11 @@ function Card({ _id, status, title, description, id, colId }) {
 					</div>
 					<div>{title}</div>
 				</div>
-				<div>
-					<GrAttachment />
+				<div className="flex gap-2">
+					<GrAttachment className="cursor-pointer" />
+					<div>
+						<SlOptionsVertical className="cursor-pointer" />
+					</div>
 				</div>
 			</div>
 			<div>

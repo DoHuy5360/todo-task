@@ -43,7 +43,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 	}
 	return visible ? (
 		<div className="fixed h-full w-full bg-slate-300/50">
-			<form action="" ref={cardAddForm} onSubmit={dialogContent ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 rounded fixed w-[500px] h-[500px] top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
+			<form action="" ref={cardAddForm} onSubmit={dialogContent._id ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 rounded fixed w-[500px] h-[500px] top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
 				<div className="flex flex-col gap-2 h-[90%]">
 					<div className="flex flex-col h-1/5 gap-1">
 						<label className="h-[30%] text-xl select-none" htmlFor="">

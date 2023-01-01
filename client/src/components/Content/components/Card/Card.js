@@ -4,7 +4,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
 import { useDrag } from "react-dnd";
 import { useEffect, useRef, useState } from "react";
-function Card({ _id, status, title, description, id, colId, handleShowContextMenu }) {
+function Card({ _id, status, title, description, id, colId, handleShowContextMenu, setCardsIdContextMenu }) {
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
@@ -27,31 +27,38 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 			return "text-green-500" + sameClass;
 		}
 	}
+	const cardCurrent = useRef();
+	function handleContextMenu(event) {
+		handleShowContextMenu(event);
+		setCardsIdContextMenu(_id);
+	}
 	return (
-		<div id={id} ref={drag} onContextMenu={handleShowContextMenu} className={(isDragging ? "opacity-50" : "opacity-100") + " card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab"}>
-			<div className="flex items-center justify-between gap-2">
+		<div id={id} ref={drag} className={[isDragging ? "opacity-50" : "opacity-100"].join(" ")}>
+			<div ref={cardCurrent} onContextMenu={handleContextMenu} className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
+				<div className="flex items-center justify-between gap-2">
+					<div className="flex items-center">
+						<div className={cardCSS(colId)}>
+							<GoPrimitiveDot />
+						</div>
+						<div>{title}</div>
+					</div>
+					<div className="flex gap-2">
+						<GrAttachment className="cursor-pointer" />
+						<div>
+							<SlOptionsVertical className="cursor-pointer" />
+						</div>
+					</div>
+				</div>
+				<div>
+					<div className="text-xs">{description}</div>
+				</div>
 				<div className="flex items-center">
-					<div className={cardCSS(colId)}>
-						<GoPrimitiveDot />
-					</div>
-					<div>{title}</div>
-				</div>
-				<div className="flex gap-2">
-					<GrAttachment className="cursor-pointer" />
 					<div>
-						<SlOptionsVertical className="cursor-pointer" />
+						<FaRegUserCircle />
 					</div>
-				</div>
-			</div>
-			<div>
-				<div className="text-xs">{description}</div>
-			</div>
-			<div className="flex items-center">
-				<div>
-					<FaRegUserCircle />
-				</div>
-				<div>
-					<FaRegUserCircle />
+					<div>
+						<FaRegUserCircle />
+					</div>
 				</div>
 			</div>
 		</div>

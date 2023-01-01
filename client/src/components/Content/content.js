@@ -37,11 +37,12 @@ function Content() {
 			dataEvent: null,
 		});
 	}
+	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
 	const [showDialog, setShowDialog] = useState(false);
 	const [dialogStatus, setDialogStatus] = useState("");
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<div onClick={handleCloseContextMenu} onContextMenu={handleCloseContextMenu}>
+			<div onContextMenu={handleCloseContextMenu}>
 				<div className="overflow-hidden">
 					<div className="flex items-baseline justify-between py-8">
 						<div className="text-2xl">Title</div>
@@ -56,14 +57,14 @@ function Content() {
 						{columns.map((column, colidx) => (
 							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
 								{column.cards.map((card, idx) => (
-									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} handleShowContextMenu={handleShowContextMenu} />
+									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} handleShowContextMenu={handleShowContextMenu} setCardsIdContextMenu={setCardsIdContextMenu} />
 								))}
 							</StatusColumn>
 						))}
 					</div>
 				</div>
 
-				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} />
+				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} handleCloseContextMenu={handleCloseContextMenu} />
 				<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} />
 			</div>
 		</DndProvider>

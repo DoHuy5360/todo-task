@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { addCard, updateCard, deleteCard } from "./controllers/cardController.js";
-import { index } from "./controllers/indexController.js";
+import { showCard, addCard, updateCard, deleteCard } from "./controllers/cardController.js";
 import cors from "cors";
 
 const corsConfig = {
@@ -11,11 +10,12 @@ const app = express();
 const PORT = process.env.port || 4000;
 const URL = "mongodb://localhost:27017/todo-task";
 app.use(express.json());
-app.get("/", cors(corsConfig), index);
+app.get("/", cors(corsConfig), showCard);
 app.options("/add-card", cors(corsConfig), addCard);
 app.post("/add-card", cors(corsConfig), addCard);
 app.get("/update-card/:id/attr", cors(corsConfig), updateCard);
-app.delete("/delete-card/:id/delete", cors(corsConfig), deleteCard);
+app.options("/:id/delete", cors(corsConfig), deleteCard);
+app.delete("/:id/delete", cors(corsConfig), deleteCard);
 mongoose
 	.connect(URL)
 	.then(() => {

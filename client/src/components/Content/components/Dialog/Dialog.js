@@ -55,7 +55,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog }) {
 				<div ref={cartStatus} className="font-semibold select-none">
 					{statusColumn}
 				</div>
-				<button className="bg-green-300 rounded px-3 py-2 select-none" type="submit" tabIndex="3">
+				<button onClick={() => console.log(1)} className="bg-green-300 rounded px-3 py-2 select-none" type="submit" tabIndex="3">
 					Done
 				</button>
 			</div>

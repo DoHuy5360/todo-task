@@ -44,7 +44,7 @@ function Content() {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div onContextMenu={handleCloseContextMenu}>
-				<div className="overflow-hidden">
+				<div className="overflow-hidden px-7">
 					<div className="flex items-baseline justify-between py-8">
 						<div className="text-2xl">Title</div>
 						<div className="flex items-center gap-2 cursor-pointer">
@@ -66,8 +66,8 @@ function Content() {
 				</div>
 
 				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} handleCloseContextMenu={handleCloseContextMenu} setShowDialog={setShowDialog} setDialogContent={setDialogContent} />
-				<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} dialogContent={dialogContent} setDialogContent={setDialogContent} />
 			</div>
+			<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} dialogContent={dialogContent} setDialogContent={setDialogContent} />
 		</DndProvider>
 	);
 }

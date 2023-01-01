@@ -42,57 +42,59 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 			.then((status) => (status === 200 ? alert("Update successfully!") : alert("Update failure!")));
 	}
 	return visible ? (
-		<form action="" ref={cardAddForm} onSubmit={dialogContent ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 rounded fixed w-[500px] h-[500px] top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
-			<div className="flex flex-col gap-2 h-[90%]">
-				<div className="flex flex-col h-1/5 gap-1">
-					<label className="h-[30%] text-xl select-none" htmlFor="">
-						Title
-					</label>
-					<input ref={cartTitle} defaultValue={dialogContent.title} className="h-[70%] p-2 outline-none rounded bg-slate-100" type="text" tabIndex="1" required />
+		<div className="fixed h-full w-full bg-slate-300/50">
+			<form action="" ref={cardAddForm} onSubmit={dialogContent ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 rounded fixed w-[500px] h-[500px] top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
+				<div className="flex flex-col gap-2 h-[90%]">
+					<div className="flex flex-col h-1/5 gap-1">
+						<label className="h-[30%] text-xl select-none" htmlFor="">
+							Title
+						</label>
+						<input ref={cartTitle} defaultValue={dialogContent.title} className="h-[70%] p-2 outline-none rounded bg-slate-100" type="text" tabIndex="1" required />
+					</div>
+					<div className="flex flex-col h-4/5 gap-1">
+						<label className="h-[10%] text-xl select-none" htmlFor="">
+							Description
+						</label>
+						<textarea ref={cartDescription} defaultValue={dialogContent.description} className="resize-none p-2 h-[90%] outline-none rounded bg-slate-100" rows="" cols="" tabIndex="2"></textarea>
+					</div>
 				</div>
-				<div className="flex flex-col h-4/5 gap-1">
-					<label className="h-[10%] text-xl select-none" htmlFor="">
-						Description
-					</label>
-					<textarea ref={cartDescription} defaultValue={dialogContent.description} className="resize-none p-2 h-[90%] outline-none rounded bg-slate-100" rows="" cols="" tabIndex="2"></textarea>
-				</div>
-			</div>
-			<div className="flex justify-between items-center text-sm h-[10%]">
-				<button
-					onClick={(event) => {
-						setContent((pre) => {
-							return pre ? false : true;
-						});
-						setDialogContent({});
-						setShowDialog(false);
-					}}
-					className="bg-rose-300 text-black rounded px-3 py-2 select-none"
-					type="button"
-					tabIndex="4"
-				>
-					Close
-				</button>
-				<div ref={cartStatus} className="font-semibold select-none">
-					{dialogContent.status || statusColumn}
-				</div>
-				<div className="flex gap-3">
+				<div className="flex justify-between items-center text-sm h-[10%]">
 					<button
-						onClick={() => {
-							cartTitle.current.value = "";
-							cartDescription.current.value = "";
-							cartTitle.current.focus();
+						onClick={(event) => {
+							setContent((pre) => {
+								return pre ? false : true;
+							});
+							setDialogContent({});
+							setShowDialog(false);
 						}}
-						className="bg-yellow-300 rounded px-3 py-2 select-none"
+						className="bg-rose-300 text-black rounded px-3 py-2 select-none"
 						type="button"
+						tabIndex="4"
 					>
-						Clear
+						Close
 					</button>
-					<button className="bg-green-300 rounded px-3 py-2 select-none" type="submit" tabIndex="3">
-						Done
-					</button>
+					<div ref={cartStatus} className="font-semibold select-none">
+						{dialogContent.status || statusColumn}
+					</div>
+					<div className="flex gap-3">
+						<button
+							onClick={() => {
+								cartTitle.current.value = "";
+								cartDescription.current.value = "";
+								cartTitle.current.focus();
+							}}
+							className="bg-yellow-300 rounded px-3 py-2 select-none"
+							type="button"
+						>
+							Clear
+						</button>
+						<button className="bg-green-300 rounded px-3 py-2 select-none" type="submit" tabIndex="3">
+							Done
+						</button>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	) : (
 		<></>
 	);

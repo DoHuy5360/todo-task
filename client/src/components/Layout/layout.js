@@ -6,7 +6,7 @@ function Layout({ children }) {
 		<>
 			<div className="flex w-full">
 				<Sidebar />
-				<div className="flex flex-col w-full p-7 h-screen">
+				<div className="flex flex-col w-full h-screen">
 					<Header />
 					{children}
 				</div>

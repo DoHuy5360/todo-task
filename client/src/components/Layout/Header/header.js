@@ -5,7 +5,7 @@ import { BsQuestionCircle, BsBell } from "react-icons/bs";
 
 function Header() {
 	return (
-		<div className="flex gap-10 items-center justify-between">
+		<div className="flex gap-10 items-center justify-between pt-7 px-7">
 			<div className="flex gap-2 items-center w-full h-full">
 				<FiSearch />
 				<input className="select-all w-full pl-2 h-full text-xs" type="text" name="" placeholder="Search..." />

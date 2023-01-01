@@ -35,7 +35,7 @@ const addCard = (req, res) => {
 		return res.send(error);
 	}
 };
-const updateCard = async (req, res) => {
+const updateStatusCard = async (req, res) => {
 	// res.send(req.params.id);
 	// res.send(req.query.status);
 	const cardSelected = await todoCardModel.findById(req.params.id);
@@ -43,8 +43,17 @@ const updateCard = async (req, res) => {
 	cardSelected.save();
 	res.send("Update successfully!");
 };
+const updateCard = async (req, res) => {
+	const { status, title, description } = req.body;
+	const cardSelected = await todoCardModel.findById(req.params.id);
+	cardSelected.status = status;
+	cardSelected.title = title;
+	cardSelected.description = description;
+	cardSelected.save();
+	res.send("Update successfully!");
+};
 const deleteCard = async (req, res) => {
 	const de = await todoCardModel.findByIdAndRemove(req.params.id);
 	res.send(de);
 };
-export { showCard, addCard, updateCard, deleteCard };
+export { showCard, addCard, updateStatusCard, updateCard, deleteCard };

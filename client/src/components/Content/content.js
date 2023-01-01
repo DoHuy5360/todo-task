@@ -40,6 +40,7 @@ function Content() {
 	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
 	const [showDialog, setShowDialog] = useState(false);
 	const [dialogStatus, setDialogStatus] = useState("");
+	const [dialogContent, setDialogContent] = useState({});
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div onContextMenu={handleCloseContextMenu}>
@@ -55,7 +56,7 @@ function Content() {
 					</div>
 					<div className="flex gap-4 h-full relative">
 						{columns.map((column, colidx) => (
-							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
+							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus} setShowContextMenu={setShowContextMenu} handleCloseContextMenu={handleCloseContextMenu}>
 								{column.cards.map((card, idx) => (
 									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} handleShowContextMenu={handleShowContextMenu} setCardsIdContextMenu={setCardsIdContextMenu} />
 								))}
@@ -64,8 +65,8 @@ function Content() {
 					</div>
 				</div>
 
-				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} handleCloseContextMenu={handleCloseContextMenu} />
-				<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} />
+				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} handleCloseContextMenu={handleCloseContextMenu} setShowDialog={setShowDialog} setDialogContent={setDialogContent} />
+				<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} dialogContent={dialogContent} setDialogContent={setDialogContent} />
 			</div>
 		</DndProvider>
 	);

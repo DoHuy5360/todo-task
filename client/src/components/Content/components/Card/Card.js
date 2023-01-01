@@ -18,7 +18,7 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 		}),
 	});
 	function cardCSS(_colId) {
-		const sameClass = " text-3xl";
+		const sameClass = " text-2xl";
 		if (colId === 0) {
 			return "text-rose-500" + sameClass;
 		} else if (colId === 1) {
@@ -30,11 +30,11 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 	const cardCurrent = useRef();
 	function handleContextMenu(event) {
 		handleShowContextMenu(event);
-		setCardsIdContextMenu(_id);
+		setCardsIdContextMenu({ _id, status, title, description });
 	}
 	return (
 		<div id={id} ref={drag} className={[isDragging ? "opacity-50" : "opacity-100"].join(" ")}>
-			<div ref={cardCurrent} onContextMenu={handleContextMenu} className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
+			<div ref={cardCurrent} className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center">
 						<div className={cardCSS(colId)}>
@@ -44,7 +44,7 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 					</div>
 					<div className="flex gap-2">
 						<GrAttachment className="cursor-pointer" />
-						<div>
+						<div onClick={handleContextMenu}>
 							<SlOptionsVertical className="cursor-pointer" />
 						</div>
 					</div>

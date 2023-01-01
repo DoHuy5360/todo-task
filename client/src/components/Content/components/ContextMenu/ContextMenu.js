@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseContextMenu }) {
+function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseContextMenu, setShowDialog, setDialogContent }) {
 	const cntxtMenu = useRef();
 	if (dataEvent) {
 		cntxtMenu.current = {
@@ -8,11 +8,8 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseCont
 			top: `${dataEvent.clientY}px`,
 		};
 	}
-	function de() {
-		console.log(cardData);
-	}
 	function deleteCard(event) {
-		fetch(`http://localhost:4000/${cardData}/delete`, {
+		fetch(`http://localhost:4000/${cardData._id}/delete`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {
@@ -26,12 +23,23 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseCont
 			}
 		});
 	}
+	function handleUpdateCardContent(event) {
+		const { _id, status, title, description } = cardData;
+		handleCloseContextMenu(event);
+		setShowDialog(event);
+		setDialogContent({
+			_id,
+			status,
+			title,
+			description,
+		});
+	}
 	return visible ? (
 		<div style={cntxtMenu.current} className="absolute flex flex-col bg-white p-3 rounded drop-shadow-md translate-x-[-100%] translate-y-[-100%]">
-			<div onClick={de} className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">
+			<div onClick={handleUpdateCardContent} className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">
 				Update
 			</div>
-			<div onClick={deleteCard} className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">
+			<div onClick={deleteCard} className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer text-rose-900">
 				Delete
 			</div>
 		</div>

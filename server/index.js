@@ -4,7 +4,7 @@ import { showCard, addCard, updateStatusCard, updateCard, deleteCard } from "./c
 import cors from "cors";
 
 const corsConfig = {
-	origin: "https://todo-task-fe.vercel.app/",
+	origin: "https://todo-task-fe.vercel.app",
 };
 const app = express();
 const PORT = process.env.port || 4000;

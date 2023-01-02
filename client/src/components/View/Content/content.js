@@ -10,7 +10,7 @@ function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	useEffect(() => {
-		fetch("http://localhost:4000")
+		fetch("https://todo-task-be.vercel.app/")
 			.then((res) => res.json())
 			.then((result) => {
 				setColumns(result.columns);

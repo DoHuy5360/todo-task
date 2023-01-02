@@ -6,7 +6,7 @@ function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setD
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
-			fetch(`http://localhost:4000/update-card/${item._id}/attr?status=${name}`).then((res) => {
+			fetch(`https://todo-task-be.vercel.app/update-card/${item._id}/attr?status=${name}`).then((res) => {
 				if (res.status === 200) {
 					setContent((pre) => {
 						return pre ? false : true;

@@ -5,60 +5,53 @@ import { AiOutlineFolderOpen } from "react-icons/ai";
 import { Link } from "react-router-dom";
 function Sidebar() {
 	return (
-		<div className="bg-slate-400 flex flex-col p-7 h-screen w-60">
-			<div className="">Todo Task</div>
-			<div className="flex flex-col gap-4 grow mt-20">
+		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 h-screen">
+			<div className="xl:whitespace-nowrap whitespace-normal">Todo Task</div>
+			<div className="flex flex-col gap-4 grow mt-20 xl:items-start items-center">
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/">
 						<IoHomeOutline />
-						<Link to="/">Overview</Link>
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Overview</div>
+					</Link>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/start">
 						<BsBarChartLine />
-						<Link to="/start">Start</Link>
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Start</div>
+					</Link>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/projects">
 						<AiOutlineFolderOpen />
-						<Link to="/projects">Projects</Link>
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Projects</div>
+					</Link>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/chat">
 						<BsChatLeftDots />
-						<Link to="/chat">Chat</Link>
-					</div>
-					<div className="bg-red-400 text-white rounded w-fit h-full px-2 grid grid-cols-1 place-items-center text-xs">3</div>
+						<div className="xl:block hidden">Chat</div>
+					</Link>
+					<div className="hidden bg-red-400 text-white rounded w-fit h-full px-2 grid grid-cols-1 place-items-center text-xs">3</div>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/calendar">
 						<BsCalendar3 />
-						<Link to="/calendar">Calendar</Link>
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Calendar</div>
+					</Link>
 				</div>
 			</div>
-			<div className="flex flex-col gap-4">
+			<div className="flex flex-col gap-4 xl:items-start items-center">
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/setting">
 						<IoSettingsOutline />
-						<Link to="/setting">Setting</Link>
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Setting</div>
+					</Link>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<div className="flex gap-4 items-center">
+					<Link className="flex gap-4 items-center" to="/logout">
 						<IoIosLogOut />
-						<span>Logout</span>
-						{/* <Link to="/logout">Logout</Link> */}
-					</div>
-					<div></div>
+						<div className="xl:block hidden">Logout</div>
+					</Link>
 				</div>
 			</div>
 		</div>

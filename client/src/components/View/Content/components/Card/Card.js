@@ -18,7 +18,7 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 		}),
 	});
 	function cardCSS(_colId) {
-		const sameClass = " text-2xl";
+		const sameClass = " text-2xl ";
 		if (colId === 0) {
 			return "text-rose-500" + sameClass;
 		} else if (colId === 1) {
@@ -33,14 +33,14 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 		setCardsIdContextMenu({ _id, status, title, description });
 	}
 	return (
-		<div id={id} ref={drag} className={[isDragging ? "opacity-50" : "opacity-100"].join(" ")}>
-			<div ref={cardCurrent} className="card relative flex flex-col gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
+		<div id={id} ref={drag} className={[isDragging ? "opacity-50" : "opacity-100", "xl:min-h-fit min-h-[136px]"].join(" ")}>
+			<div ref={cardCurrent} className="h-full relative flex flex-col justify-between gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center">
-						<div className={cardCSS(colId)}>
+						<div className={cardCSS(colId) + "xl:block hidden"}>
 							<GoPrimitiveDot />
 						</div>
-						<div>{title}</div>
+						<div className="xl:w-fit xl:max-w-none w-28 max-w-28 truncate ...">{title}</div>
 					</div>
 					<div className="flex gap-2">
 						<GrAttachment className="cursor-pointer" />
@@ -50,7 +50,7 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 					</div>
 				</div>
 				<div>
-					<div className="text-xs">{description}</div>
+					<div className="text-xs overflow-y-scroll xl:max-w-fit xl:min-w-full xl:text-justify max-h-20 min-h-[80px] max-w-[160px] scrollbar-none bg-slate-50 p-1 rounded">{description}</div>
 				</div>
 				<div className="flex items-center">
 					<div>

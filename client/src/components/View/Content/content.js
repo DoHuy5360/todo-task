@@ -44,9 +44,9 @@ function Content() {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<div onContextMenu={handleCloseContextMenu}>
-				<div className="overflow-hidden px-7">
-					<div className="flex items-baseline justify-between py-8">
-						<div className="text-2xl">Title</div>
+				<div className="overflow-hidden">
+					<div className="flex items-baseline justify-between xl:py-8 py-1">
+						<div className="text-2xl">Tasks</div>
 						<div className="flex items-center gap-2 cursor-pointer">
 							<div>This Week</div>
 							<div>
@@ -54,7 +54,7 @@ function Content() {
 							</div>
 						</div>
 					</div>
-					<div className="flex gap-4 h-full relative">
+					<div className="flex xl:flex-row flex-col gap-4 h-full relative">
 						{columns.map((column, colidx) => (
 							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus} setShowContextMenu={setShowContextMenu} handleCloseContextMenu={handleCloseContextMenu}>
 								{column.cards.map((card, idx) => (

@@ -7,11 +7,11 @@ function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	return (
 		<Router>
-			<div className="flex w-full">
+			<div className="flex w-full h-fit">
 				<div className={[showSidebar ? "block" : "hidden", "xl:w-60 w-14"].join(" ")}>
 					<Sidebar />
 				</div>
-				<div className="flex flex-col w-full h-screen">
+				<div className="flex flex-col w-full">
 					<Header setShowSidebar={setShowSidebar} />
 					<div className="px-7">
 						<Routes>

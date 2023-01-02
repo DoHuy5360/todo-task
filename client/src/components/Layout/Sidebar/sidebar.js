@@ -5,7 +5,7 @@ import { AiOutlineFolderOpen } from "react-icons/ai";
 import { Link } from "react-router-dom";
 function Sidebar() {
 	return (
-		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 h-screen">
+		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">
 			<div className="xl:whitespace-nowrap whitespace-normal">Todo Task</div>
 			<div className="flex flex-col gap-4 grow mt-20 xl:items-start items-center">
 				<div className="flex items-center cursor-pointer justify-between">

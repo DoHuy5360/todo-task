@@ -4,7 +4,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
 import { useDrag } from "react-dnd";
 import { useEffect, useRef, useState } from "react";
-function Card({ _id, status, title, description, id, colId, handleShowContextMenu, setCardsIdContextMenu }) {
+function Card({ _id, status, title, description, updatedAt, id, colId, handleShowContextMenu, setCardsIdContextMenu }) {
+	const friendlyUpdatedDate = useRef(updatedAt.slice(0, 10));
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
@@ -52,13 +53,12 @@ function Card({ _id, status, title, description, id, colId, handleShowContextMen
 				<div>
 					<div className="text-xs overflow-y-scroll xl:max-w-fit xl:min-w-full xl:text-justify max-h-20 min-h-[80px] max-w-[160px] scrollbar-none bg-slate-50 p-1 rounded">{description}</div>
 				</div>
-				<div className="flex items-center">
-					<div>
+				<div className="flex items-center justify-between">
+					<div className="flex items-center">
+						<FaRegUserCircle />
 						<FaRegUserCircle />
 					</div>
-					<div>
-						<FaRegUserCircle />
-					</div>
+					<div className="text-xs">{friendlyUpdatedDate.current}</div>
 				</div>
 			</div>
 		</div>

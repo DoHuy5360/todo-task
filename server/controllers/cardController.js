@@ -3,7 +3,9 @@ import { todoCardModel } from "../database/models/todoCardModel.js";
 const showCard = async (req, res) => {
 	try {
 		const dataResult = {};
-		const getTodoCard = await todoCardModel.find({ status: "Todo" });
+		const getTodoCard = await todoCardModel.find({
+			status: "Todo",
+		});
 		const getProgressCard = await todoCardModel.find({ status: "In Progress" });
 		const getCompleteCard = await todoCardModel.find({ status: "Completed" });
 		const amountTodoCard = await todoCardModel.countDocuments({ status: "Todo" });

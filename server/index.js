@@ -2,13 +2,14 @@ import express from "express";
 import mongoose from "mongoose";
 import { showCard, addCard, updateStatusCard, updateCard, deleteCard } from "./controllers/cardController.js";
 import cors from "cors";
-
+import * as dotenv from "dotenv";
+dotenv.config();
 const corsConfig = {
-	origin: "https://todo-task-fe.vercel.app",
+	origin: process.env.CORS_ORIGIN,
 };
 const app = express();
 const PORT = process.env.port || 4000;
-const URL = "mongodb+srv://admin:6XP6YWlHgapLOxEL@cluster0.bwkty.mongodb.net/?retryWrites=true&w=majority";
+const URL = process.env.DATABASE_URL;
 app.use(express.json());
 app.get("/", cors(corsConfig), showCard);
 app.options("/add-card", cors(corsConfig), addCard);

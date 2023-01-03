@@ -12,7 +12,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 			title: cartTitle.current.value,
 			description: cartDescription.current.value,
 		};
-		fetch("https://todo-task-be.vercel.app/add-card", {
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/add-card`, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -30,7 +30,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 			title: cartTitle.current.value,
 			description: cartDescription.current.value,
 		};
-		fetch(`https://todo-task-be.vercel.app/${dialogContent._id}/update`, {
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${dialogContent._id}/update`, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",

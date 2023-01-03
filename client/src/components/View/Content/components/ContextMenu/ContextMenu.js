@@ -9,7 +9,7 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseCont
 		};
 	}
 	function deleteCard(event) {
-		fetch(`https://todo-task-be.vercel.app/${cardData._id}/delete`, {
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${cardData._id}/delete`, {
 			method: "DELETE",
 		}).then((res) => {
 			if (res.status === 200) {

@@ -7,7 +7,7 @@ function Sidebar() {
 	return (
 		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">
 			<div className="xl:whitespace-nowrap whitespace-normal">Todo Task</div>
-			<div className="flex flex-col gap-4 grow mt-20 xl:items-start items-center">
+			<div className="flex flex-col gap-4 grow my-20 xl:items-start items-center">
 				<div className="flex items-center cursor-pointer justify-between">
 					<Link className="flex gap-4 items-center" to="/">
 						<IoHomeOutline />

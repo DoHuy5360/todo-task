@@ -8,13 +8,13 @@ function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	return (
 		<Router>
-			<div className="flex w-full h-fit">
+			<div className="flex w-full h-fit min-h-screen max-h-screen">
 				<div className={[showSidebar ? "block" : "hidden", "xl:w-60 w-14"].join(" ")}>
 					<Sidebar />
 				</div>
-				<div className="flex flex-col w-full">
+				<div className={[showSidebar ? "xl:w-full w-[calc(100%-56px)]" : "w-full", "flex flex-col"].join(" ")}>
 					<Header setShowSidebar={setShowSidebar} />
-					<div className="px-7">
+					<div className="xl:px-7 px-4 overflow-y-scroll">
 						<Routes>
 							<Route exact path="/" element={<Content />}></Route>
 							<Route path="/start" element={<Start />}></Route>

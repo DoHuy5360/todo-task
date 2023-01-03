@@ -8,7 +8,7 @@ function Header({ setShowSidebar }) {
 		setShowSidebar((pre) => (pre ? false : true));
 	}
 	return (
-		<div className="flex gap-3 items-center justify-between pt-7 px-7">
+		<div className="flex gap-3 items-center justify-between xl:pt-7 xl:px-7 py-4 px-4">
 			<div onClick={handleShowSidebar} className="cursor-pointer">
 				<BsLayoutTextSidebarReverse />
 			</div>

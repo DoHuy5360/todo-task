@@ -6,16 +6,19 @@ import Card from "./components/Card/Card.js";
 import { useEffect, useRef, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
+import ServerRequest from "../../animation/ServerRequest.js";
 function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
+	const [animationLoading, setAnimationLoading] = useState(true);
 	useEffect(() => {
 		fetch(process.env.REACT_APP_DESTINATION_REQUEST)
 			.then((res) => res.json())
 			.then((result) => {
 				setColumns(result.columns);
+				setAnimationLoading(false);
 			});
-	}, [content]);
+	}, [content, animationLoading]);
 	const [showContextMenu, setShowContextMenu] = useState({
 		visible: false,
 		dataEvent: null,
@@ -43,6 +46,7 @@ function Content() {
 	const [dialogContent, setDialogContent] = useState({});
 	return (
 		<DndProvider backend={HTML5Backend}>
+			<ServerRequest visible={animationLoading} />
 			<div onContextMenu={handleCloseContextMenu}>
 				<div className="overflow-hidden">
 					<div className="flex items-baseline justify-between xl:py-8 py-1">

@@ -4,9 +4,12 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { BsQuestionCircle, BsBell } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 function Header({ setShowSidebar }) {
+	function handleShowSidebar() {
+		setShowSidebar((pre) => (pre ? false : true));
+	}
 	return (
 		<div className="flex gap-3 items-center justify-between pt-7 px-7">
-			<div onClick={() => setShowSidebar((pre) => (pre ? false : true))} className="cursor-pointer">
+			<div onClick={handleShowSidebar} className="cursor-pointer">
 				<BsLayoutTextSidebarReverse />
 			</div>
 			<div className="flex gap-2 items-center w-full h-full">

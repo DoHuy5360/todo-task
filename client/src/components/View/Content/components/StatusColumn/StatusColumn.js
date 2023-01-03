@@ -33,9 +33,9 @@ function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setD
 		}
 	}
 	return (
-		<div className="flex flex-col gap-2 bg-slate-300 w-full p-2 rounded xl:h-[560px] pb-4 overflow-hidden">
+		<div className="flex flex-col gap-2 bg-slate-300 w-full p-2 xl:rounded-sm rounded xl:h-[560px] overflow-hidden">
 			<div className="select-none flex xl:flex-col flex-row justify-between">
-				<div className="flex gap-2 items-center justify-between py-2">
+				<div className="flex gap-2 items-center justify-between xl:py-1">
 					<div className={cardCSS(colId) + "xl:hidden block"}>
 						<GoPrimitiveDot />
 					</div>
@@ -48,7 +48,7 @@ function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setD
 						setShowDialog(true);
 						setDialogStatus(name);
 					}}
-					className="grid place-items-center p-2 bg-white rounded cursor-pointer xl:w-full w-10"
+					className="grid place-items-center bg-white xl:rounded-sm rounded cursor-pointer xl:w-full w-7 h-7"
 				>
 					<AiOutlinePlus />
 				</div>

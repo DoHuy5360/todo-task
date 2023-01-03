@@ -1,7 +1,7 @@
 import { GoPrimitiveDot } from "react-icons/go";
-import { GrAttachment } from "react-icons/gr";
 import { FaRegUserCircle } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
+import { BsArrowsMove } from "react-icons/bs";
 import { useDrag } from "react-dnd";
 import { useEffect, useRef, useState } from "react";
 function Card({ _id, status, title, description, updatedAt, id, colId, handleShowContextMenu, setCardsIdContextMenu }) {
@@ -28,14 +28,13 @@ function Card({ _id, status, title, description, updatedAt, id, colId, handleSho
 			return "text-green-500" + sameClass;
 		}
 	}
-	const cardCurrent = useRef();
 	function handleContextMenu(event) {
 		handleShowContextMenu(event);
 		setCardsIdContextMenu({ _id, status, title, description });
 	}
 	return (
-		<div id={id} ref={drag} className={[isDragging ? "opacity-50" : "opacity-100", "xl:min-h-fit min-h-[136px]"].join(" ")}>
-			<div ref={cardCurrent} className="h-full relative flex flex-col justify-between gap-2 py-2 pl-2 pr-4 rounded bg-white cursor-grab">
+		<div id={id} className={[isDragging ? "opacity-50" : "opacity-100", "xl:min-h-fit min-h-[136px]"].join(" ")}>
+			<div className="h-full relative flex flex-col justify-between gap-2 py-2 pl-2 pr-4 xl:rounded-sm rounded bg-white">
 				<div className="flex items-center justify-between gap-2">
 					<div className="flex items-center">
 						<div className={cardCSS(colId) + "xl:block hidden"}>
@@ -44,14 +43,16 @@ function Card({ _id, status, title, description, updatedAt, id, colId, handleSho
 						<div className="xl:w-fit xl:max-w-none w-28 max-w-28 truncate ...">{title}</div>
 					</div>
 					<div className="flex gap-2">
-						<GrAttachment className="cursor-pointer" />
+						<div ref={drag}>
+							<BsArrowsMove className="cursor-grab" />
+						</div>
 						<div onClick={handleContextMenu}>
 							<SlOptionsVertical className="cursor-pointer" />
 						</div>
 					</div>
 				</div>
 				<div>
-					<div className="text-xs overflow-y-scroll xl:max-w-fit xl:min-w-full xl:text-justify max-h-20 min-h-[80px] max-w-[160px] scrollbar-none bg-slate-50 p-1 rounded">{description}</div>
+					<div className="text-xs overflow-y-scroll xl:max-w-fit xl:min-w-full xl:text-justify max-h-20 min-h-[80px] max-w-[160px] scrollbar-none bg-slate-50 p-1 break-all rounded cursor-text">{description}</div>
 				</div>
 				<div className="flex items-center justify-between">
 					<div className="flex items-center">

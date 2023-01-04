@@ -12,10 +12,16 @@ module.exports = {
 					"0%": { transform: "scale(1)" },
 					"100%": { transform: "scale(4)" },
 				},
+				flyUp: {
+					"0%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-20px)" },
+					"100%": { transform: "translateY(0)" },
+				},
 			},
 			animation: {
 				ledBlink: "ledBlink 200ms linear infinite",
 				dotScale: "dotScale 1000ms linear infinite",
+				flyUp: "flyUp 5000ms cubic-bezier(0.70, 0.30, 0.30, 0.70) infinite",
 			},
 		},
 	},

@@ -3,9 +3,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
 import { BsArrowsMove } from "react-icons/bs";
 import { useDrag } from "react-dnd";
-import { useEffect, useRef, useState } from "react";
-function Card({ _id, status, title, description, updatedAt, id, colId, handleShowContextMenu, setCardsIdContextMenu }) {
+import { useRef, useContext } from "react";
+import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
+function Card({ _id, status, title, description, updatedAt, id, colId, setCardsIdContextMenu }) {
 	const friendlyUpdatedDate = useRef(updatedAt.slice(0, 10));
+	const { setShowContextMenu } = useContext(contextMenuContext);
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
@@ -29,7 +31,17 @@ function Card({ _id, status, title, description, updatedAt, id, colId, handleSho
 		}
 	}
 	function handleContextMenu(event) {
-		handleShowContextMenu(event);
+		setShowContextMenu((pre) =>
+			pre.visible
+				? {
+						visible: false,
+						dataEvent: null,
+				  }
+				: {
+						visible: true,
+						dataEvent: event,
+				  }
+		);
 		setCardsIdContextMenu({ _id, status, title, description });
 	}
 	return (

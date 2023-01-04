@@ -3,8 +3,15 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BsQuestionCircle, BsBell } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
+import { contextMenuContext } from "../../Context/ContextMenuProvider";
+import { useContext } from "react";
 function Header({ setShowSidebar }) {
+	const { setShowContextMenu } = useContext(contextMenuContext);
 	function handleShowSidebar() {
+		setShowContextMenu({
+			visible: false,
+			dateEvent: null,
+		});
 		setShowSidebar((pre) => (pre ? false : true));
 	}
 	return (

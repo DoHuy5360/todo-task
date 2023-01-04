@@ -1,6 +1,7 @@
-import { useRef } from "react";
-
-function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseContextMenu, setShowDialog, setDialogContent }) {
+import { useRef, useContext } from "react";
+import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
+function ContextMenu({ visible, dataEvent, cardData, setContent, setShowDialog, setDialogContent }) {
+	const { setShowContextMenu } = useContext(contextMenuContext);
 	const cntxtMenu = useRef();
 	if (dataEvent) {
 		cntxtMenu.current = {
@@ -19,7 +20,10 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseCont
 					setContent((pre) => {
 						return pre ? false : true;
 					});
-					handleCloseContextMenu(event);
+					setShowContextMenu({
+						visible: false,
+						dataEvent: null,
+					});
 				} else {
 					alert("Delete failure!");
 				}
@@ -28,7 +32,10 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, handleCloseCont
 	}
 	function handleUpdateCardContent(event) {
 		const { _id, status, title, description } = cardData;
-		handleCloseContextMenu(event);
+		setShowContextMenu({
+			visible: false,
+			dataEvent: null,
+		});
 		setShowDialog(event);
 		setDialogContent({
 			_id,

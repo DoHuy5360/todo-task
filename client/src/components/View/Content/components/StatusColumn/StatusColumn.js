@@ -1,8 +1,10 @@
 import { useDrop } from "react-dnd";
 import { AiOutlinePlus } from "react-icons/ai";
 import { GoPrimitiveDot } from "react-icons/go";
-
-function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setDialogStatus, setShowContextMenu, handleCloseContextMenu, children }) {
+import { useContext } from "react";
+import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
+function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setDialogStatus, children }) {
+	const { setShowContextMenu } = useContext(contextMenuContext);
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
@@ -44,7 +46,10 @@ function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setD
 				</div>
 				<div
 					onClick={(event) => {
-						handleCloseContextMenu(event);
+						setShowContextMenu({
+							visible: false,
+							dataEvent: null,
+						});
 						setShowDialog(true);
 						setDialogStatus(name);
 					}}

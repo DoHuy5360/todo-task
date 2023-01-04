@@ -3,10 +3,11 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
 import ServerRequest from "../../animation/ServerRequest.js";
+import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
@@ -19,27 +20,7 @@ function Content() {
 				setAnimationLoading(false);
 			});
 	}, [content, animationLoading]);
-	const [showContextMenu, setShowContextMenu] = useState({
-		visible: false,
-		dataEvent: null,
-	});
-	function handleShowContextMenu(event) {
-		event.stopPropagation();
-		event.preventDefault();
-
-		setShowContextMenu({
-			visible: true,
-			dataEvent: event,
-		});
-	}
-	function handleCloseContextMenu(event) {
-		event.preventDefault();
-
-		setShowContextMenu({
-			visible: false,
-			dataEvent: null,
-		});
-	}
+	const { showContextMenu } = useContext(contextMenuContext);
 	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
 	const [showDialog, setShowDialog] = useState(false);
 	const [dialogStatus, setDialogStatus] = useState("");
@@ -47,7 +28,7 @@ function Content() {
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<ServerRequest visible={animationLoading} />
-			<div onContextMenu={handleCloseContextMenu}>
+			<div>
 				<div className="overflow-hidden">
 					<div className="flex items-baseline justify-between xl:py-8 py-1">
 						<div className="text-2xl">Tasks</div>
@@ -60,16 +41,16 @@ function Content() {
 					</div>
 					<div className="flex xl:flex-row flex-col gap-4 h-full relative">
 						{columns.map((column, colidx) => (
-							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus} setShowContextMenu={setShowContextMenu} handleCloseContextMenu={handleCloseContextMenu}>
+							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
 								{column.cards.map((card, idx) => (
-									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} handleShowContextMenu={handleShowContextMenu} setCardsIdContextMenu={setCardsIdContextMenu} />
+									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} setCardsIdContextMenu={setCardsIdContextMenu} />
 								))}
 							</StatusColumn>
 						))}
 					</div>
 				</div>
 
-				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} handleCloseContextMenu={handleCloseContextMenu} setShowDialog={setShowDialog} setDialogContent={setDialogContent} />
+				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} setShowDialog={setShowDialog} setDialogContent={setDialogContent} />
 			</div>
 			<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} dialogContent={dialogContent} setDialogContent={setDialogContent} />
 		</DndProvider>

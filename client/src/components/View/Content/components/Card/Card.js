@@ -1,6 +1,7 @@
 import { GoPrimitiveDot } from "react-icons/go";
 import { FaRegUserCircle } from "react-icons/fa";
 import { SlOptionsVertical } from "react-icons/sl";
+import { ImMoveUp } from "react-icons/im";
 import { BsArrowsMove } from "react-icons/bs";
 import { useDrag } from "react-dnd";
 import { useRef, useContext } from "react";
@@ -55,8 +56,8 @@ function Card({ _id, status, title, description, updatedAt, id, colId, setCardsI
 						<div className="xl:w-fit xl:max-w-none w-28 max-w-28 truncate ...">{title}</div>
 					</div>
 					<div className="flex gap-2">
-						<div ref={drag}>
-							<BsArrowsMove className="cursor-grab" />
+						<div ref={drag} className="sm:block hidden">
+							<ImMoveUp className="cursor-grab" />
 						</div>
 						<div onClick={handleContextMenu}>
 							<SlOptionsVertical className="cursor-pointer" />

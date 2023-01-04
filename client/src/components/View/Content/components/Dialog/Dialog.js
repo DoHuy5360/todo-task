@@ -45,14 +45,14 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 		<div className="fixed h-full w-full bg-slate-300/50">
 			<form ref={cardAddForm} onSubmit={dialogContent._id ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 xl:rounded fixed xl:w-[500px] w-full xl:h-[500px] h-full top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
 				<div className="flex flex-col gap-2 h-[90%]">
-					<div className="flex flex-col h-1/5 gap-1">
+					<div className="flex flex-col xl:h-1/5 h-[80px] gap-1">
 						<label className="h-[30%] text-xl select-none" htmlFor="card-title">
 							Title
 						</label>
 						<input ref={cartTitle} defaultValue={dialogContent.title} id="card-title" className="h-[70%] p-2 outline-none rounded bg-slate-100" type="text" tabIndex="1" required />
 					</div>
-					<div className="flex flex-col h-4/5 gap-1">
-						<label className="h-[10%] text-xl select-none" htmlFor="card-desc">
+					<div className="flex flex-col xl:h-4/5 h-[calc(100%-80px)] gap-1">
+						<label className="h-[10%] max-h-[28px] text-xl select-none" htmlFor="card-desc">
 							Description
 						</label>
 						<textarea ref={cartDescription} defaultValue={dialogContent.description} id="card-desc" className="resize-none p-2 h-[90%] outline-none rounded bg-slate-100" rows="" cols="" tabIndex="2"></textarea>

@@ -6,7 +6,7 @@ import Card from "./components/Card/Card.js";
 import { useContext, useEffect, useRef, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
-import ServerRequest from "../../animation/ServerRequest.js";
+import ServerRequest from "../../animation/ServerLoadingAnimation.js";
 import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 function Content() {
 	const [content, setContent] = useState(false);

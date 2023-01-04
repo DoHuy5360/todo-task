@@ -4,7 +4,12 @@ function ServerRequest({ visible }) {
 		<div className="flex xl:flex-row flex-col-reverse items-center justify-center gap-10 fixed xl:w-full w-[calc(100%-30px)] h-full">
 			<div>
 				<div className="w-24 h-14 p-1 bg-slate-400 rounded-sm">
-					<div className="w-full h-full bg-slate-300 rounded-sm"></div>
+					<div className="w-full h-full bg-slate-300 rounded-sm grid place-items-center">
+						<div className="h-5 w-5 relative">
+							<div className="absolute w-full h-full border-transparent border-2 border-solid rounded-full border-l-slate-100 animate-spin"></div>
+							<div className="absolute w-full h-full border-2 border-solid rounded-full border-slate-50/50"></div>
+						</div>
+					</div>
 				</div>
 				<div className="flex flex-col items-center">
 					<div className="w-2 h-4 bg-slate-500"></div>

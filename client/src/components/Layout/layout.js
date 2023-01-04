@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar/sidebar.js";
 import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.js";
 import { useState } from "react";
 import ServerRequest from "../animation/ServerLoadingAnimation.js";
+import Login from "../test/Login.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	return (
@@ -22,7 +23,8 @@ function Layout() {
 							<Route path="/chat" element={<Chat />}></Route>
 							<Route path="/calendar" element={<Calendar />}></Route>
 							<Route path="/setting" element={<Setting />}></Route>
-							<Route path="/logout" element={<ServerRequest visible={true} />}></Route>
+							{/* <Route path="/logout" element={<ServerRequest visible={true} />}></Route> */}
+							<Route path="/logout" element={<Login />}></Route>
 						</Routes>
 					</div>
 				</div>

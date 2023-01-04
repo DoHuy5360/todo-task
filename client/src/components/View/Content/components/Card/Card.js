@@ -43,7 +43,7 @@ function Card({ _id, status, title, description, updatedAt, id, colId, setCardsI
 						dataEvent: event,
 				  }
 		);
-		setCardsIdContextMenu({ _id, status, title, description });
+		setCardsIdContextMenu({ _id, status, title, description, colId });
 	}
 	return (
 		<div id={id} className={[isDragging ? "opacity-50" : "opacity-100", "xl:min-h-fit min-h-[136px]"].join(" ")}>

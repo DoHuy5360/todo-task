@@ -4,8 +4,22 @@ import { Logo, Wave } from "../image/Image";
 function Login() {
 	const [login, SetLogin] = useState(false);
 	const formName = login ? { main: "Sign up", reverse: "Log in", exist: "Don't have an account yet?", slogan: "Sometimes, we need to rest..." } : { main: "Log in", reverse: "Sign up", exist: "Already have an account?", slogan: "Work, work more, work forever!" };
+	function requestAuth(event) {
+		event.preventDefault();
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, { method: "POST" })
+			.then((res) => res.json())
+			.then((data) => {
+				localStorage.setItem("auth", data.auth);
+				if (data.auth) {
+					const URL = window.location;
+					const newPath = `${URL.origin}/`;
+					window.location.href = newPath;
+				}
+			});
+	}
+
 	return (
-		<div className={[login ? "flex-row-reverse" : "flex-row", "select-none flex"].join(" ")}>
+		<form onSubmit={requestAuth} className={[login ? "flex-row-reverse" : "flex-row", "select-none flex"].join(" ")}>
 			<div className="grid place-items-center xl:w-1/2 w-screen h-screen">
 				<div className="flex flex-col gap-6 items-center">
 					<div className="flex flex-col items-center gap-4">
@@ -24,7 +38,7 @@ function Login() {
 						<input className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
 					</div>
 					<div>
-						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="button">
+						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="submit">
 							Done!
 						</button>
 					</div>
@@ -42,7 +56,7 @@ function Login() {
 			<div className="xl:block hidden  w-1/2 h-screen bg-slate-100">
 				<Wave />
 			</div>
-		</div>
+		</form>
 	);
 }
 

@@ -6,8 +6,8 @@ import Card from "./components/Card/Card.js";
 import { useContext, useEffect, useRef, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
-import ServerRequest from "../../animation/ServerLoadingAnimation.js";
 import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
+import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
 function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
@@ -27,7 +27,7 @@ function Content() {
 	const [dialogContent, setDialogContent] = useState({});
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<ServerRequest visible={animationLoading} />
+			<ServerLoadingAnimation visible={animationLoading} />
 			<div>
 				<div className="overflow-hidden">
 					<div className="flex items-baseline justify-between xl:py-8 py-1">

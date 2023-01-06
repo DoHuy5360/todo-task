@@ -1,12 +1,16 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./Header/header.js";
 import Sidebar from "./Sidebar/sidebar.js";
 import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.js";
 import { useState } from "react";
-import ServerRequest from "../animation/ServerLoadingAnimation.js";
+import ServerLoadingAnimation from "../animation/ServerLoadingAnimation.js";
 import Login from "../test/Login.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
+	const auth = localStorage.getItem("auth");
+	if (!auth) {
+		return <Login />;
+	}
 	return (
 		<Router>
 			<div className="flex w-full h-fit min-h-screen max-h-screen">
@@ -23,8 +27,8 @@ function Layout() {
 							<Route path="/chat" element={<Chat />}></Route>
 							<Route path="/calendar" element={<Calendar />}></Route>
 							<Route path="/setting" element={<Setting />}></Route>
-							{/* <Route path="/logout" element={<ServerRequest visible={true} />}></Route> */}
-							<Route path="/logout" element={<Login />}></Route>
+							<Route path="/logout" element={<ServerLoadingAnimation visible={true} />}></Route>
+							<Route path="/login" element={<Login />}></Route>
 						</Routes>
 					</div>
 				</div>

@@ -1,5 +1,5 @@
 import { BsDot } from "react-icons/bs";
-function ServerRequest({ visible }) {
+function ServerLoadingAnimation({ visible }) {
 	return visible ? (
 		<div className="flex xl:flex-row flex-col-reverse items-center justify-center gap-10 fixed xl:w-full w-[calc(100%-30px)] h-full">
 			<div>
@@ -53,4 +53,4 @@ function ServerRequest({ visible }) {
 	);
 }
 
-export default ServerRequest;
+export default ServerLoadingAnimation;

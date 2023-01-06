@@ -1,21 +1,38 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Logo, Wave } from "../image/Image";
 function Login() {
 	const [login, SetLogin] = useState(false);
 	const formName = login ? { main: "Sign up", reverse: "Log in", exist: "Don't have an account yet?", slogan: "Sometimes, we need to rest..." } : { main: "Log in", reverse: "Sign up", exist: "Already have an account?", slogan: "Work, work more, work forever!" };
+	const emailForm = useRef();
+	const password = useRef();
 	function requestAuth(event) {
 		event.preventDefault();
-		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, { method: "POST" })
-			.then((res) => res.json())
-			.then((data) => {
-				localStorage.setItem("auth", data.auth);
-				if (data.auth) {
-					const URL = window.location;
-					const newPath = `${URL.origin}/`;
-					window.location.href = newPath;
-				}
+		if (login) {
+			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, { method: "POST" })
+				.then((res) => res.json())
+				.then((data) => {
+					localStorage.setItem("auth", data.auth);
+					if (data.auth) {
+						const URL = window.location;
+						const newPath = `${URL.origin}/`;
+						window.location.href = newPath;
+					}
+				});
+		} else {
+			const dataForm = {
+				email: emailForm.current.value,
+				password: password.current.value,
+			};
+			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/new-user`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(dataForm),
 			});
+		}
 	}
 
 	return (
@@ -34,8 +51,8 @@ function Login() {
 						</div>
 					</div>
 					<div className="flex flex-col gap-2">
-						<input className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" placeholder="Email" type="email" spellCheck="false" required />
-						<input className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
+						<input ref={emailForm} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" placeholder="Email" type="email" spellCheck="false" required />
+						<input ref={password} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
 					</div>
 					<div>
 						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="submit">

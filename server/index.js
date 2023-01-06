@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { showCard, addCard, updateStatusCard, updateCard, deleteCard } from "./controllers/cardController.js";
+import { newUser } from "./controllers/userController.js";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import loginAuthentication from "./controllers/auth/loginController.js";
@@ -25,6 +26,9 @@ app.delete("/:id/delete", cors(corsConfig), deleteCard);
 
 app.options("/auth/login", cors(corsConfig), loginAuthentication);
 app.post("/auth/login", cors(corsConfig), loginAuthentication);
+
+app.options("/new-user", cors(corsConfig), newUser);
+app.post("/new-user", cors(corsConfig), newUser);
 
 mongoose
 	.connect(URL, { dbName: "todoTaskDB" })

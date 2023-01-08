@@ -3,8 +3,7 @@ import LogoAnimation from "../animation/LogoAnimation";
 import Login from "./Login";
 
 function Authentication({ children }) {
-	// const [token, setToken] = useState(window.localStorage.getItem("token"));
-	const [token, setToken] = useState(document.cookie.split(";")[0].split("=")[1]);
+	const token = document.cookie.split(";")[0].split("=")[1];
 	const [showContent, setShowContent] = useState(null);
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/open`, {
@@ -25,7 +24,7 @@ function Authentication({ children }) {
 					setShowContent(false);
 				}
 			});
-	}, [token]);
+	}, []);
 	if (!token) {
 		return <Login />;
 	} else {

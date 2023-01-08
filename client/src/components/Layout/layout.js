@@ -3,11 +3,10 @@ import Header from "./Header/header.js";
 import Sidebar from "./Sidebar/sidebar.js";
 import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.js";
 import { useState } from "react";
-import ServerLoadingAnimation from "../animation/ServerLoadingAnimation.js";
-import Login from "../test/Login.js";
 import Authentication from "../test/Authentication.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
+
 	return (
 		<Authentication>
 			<Router>
@@ -25,8 +24,6 @@ function Layout() {
 								<Route path="/chat" element={<Chat />}></Route>
 								<Route path="/calendar" element={<Calendar />}></Route>
 								<Route path="/setting" element={<Setting />}></Route>
-								<Route path="/logout" element={<ServerLoadingAnimation visible={true} />}></Route>
-								<Route path="/login" element={<Login />}></Route>
 							</Routes>
 						</div>
 					</div>

@@ -4,6 +4,11 @@ import { BsBarChartLine, BsChatLeftDots, BsCalendar3 } from "react-icons/bs";
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import { Link } from "react-router-dom";
 function Sidebar() {
+	function logout() {
+		document.cookie = "token=;expires = Thu, 01 Jan 1970 00:00:00 GMT";
+		document.cookie = "user=;expires = Thu, 01 Jan 1970 00:00:00 GMT";
+		window.location.reload();
+	}
 	return (
 		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">
 			<div className="xl:whitespace-nowrap whitespace-normal">Todo Task</div>
@@ -48,10 +53,10 @@ function Sidebar() {
 					</Link>
 				</div>
 				<div className="flex items-center cursor-pointer justify-between">
-					<Link className="flex gap-4 items-center" to="/logout">
+					<div onClick={logout} className="flex gap-4 items-center">
 						<IoIosLogOut />
 						<div className="xl:block hidden">Logout</div>
-					</Link>
+					</div>
 				</div>
 			</div>
 		</div>

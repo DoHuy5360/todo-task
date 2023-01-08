@@ -41,7 +41,10 @@ function Login() {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					document.cookie = `token=${data.token}; secure;`;
+					const { token, user } = data;
+					document.cookie = `token=${token}; secure;`;
+					document.cookie = `user=${JSON.stringify(user)}; secure;`;
+					window.location.reload();
 				});
 		}
 	}

@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.port || 4000;
 const URL = process.env.DATABASE_URL;
 app.use(express.json());
-app.get("/", [cors(corsConfig)], showCard);
+app.get("/:token", [cors(corsConfig)], showCard);
 app.options("/add-card", cors(corsConfig), addCard);
 app.post("/add-card", cors(corsConfig), addCard);
 app.get("/update-card/:id/attr", cors(corsConfig), updateStatusCard);

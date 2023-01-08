@@ -3,23 +3,30 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
 import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
 function Content() {
+	console.log("render");
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	const [animationLoading, setAnimationLoading] = useState(true);
+	const token = document.cookie
+		.split(";")
+		.filter((key) => {
+			return key.split("=")[0] == "token";
+		})[0]
+		.split("=")[1];
 	useEffect(() => {
-		fetch(process.env.REACT_APP_DESTINATION_REQUEST)
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${token}`)
 			.then((res) => res.json())
 			.then((result) => {
 				setColumns(result.columns);
 				setAnimationLoading(false);
 			});
-	}, [content, animationLoading]);
+	}, [content]);
 	const { showContextMenu } = useContext(contextMenuContext);
 	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
 	const [showDialog, setShowDialog] = useState(false);

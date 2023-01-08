@@ -1,21 +1,19 @@
 import { todoCardModel } from "../database/models/todoCardModel.js";
+import { userModel } from "../database/models/userModel.js";
 
 const showCard = async (req, res) => {
+	const token = req.params.token;
+	const { _id } = await userModel.findOne({ token }).then((rsult) => rsult);
 	try {
 		const dataResult = {};
-		const getTodoCard = await todoCardModel.find({
-			status: "Todo",
-		});
-		const getProgressCard = await todoCardModel.find({ status: "In Progress" });
-		const getCompleteCard = await todoCardModel.find({ status: "Completed" });
-		const amountTodoCard = await todoCardModel.countDocuments({ status: "Todo" });
-		const amountProgressCard = await todoCardModel.countDocuments({ status: "In Progress" });
-		const amountCompleteCard = await todoCardModel.countDocuments({ status: "Completed" });
+		const getTodoCard = await todoCardModel.find({ owner: _id, status: "Todo" });
+		const getProgressCard = await todoCardModel.find({ owner: _id, status: "In Progress" });
+		const getCompleteCard = await todoCardModel.find({ owner: _id, status: "Completed" });
 
 		dataResult.columns = [
-			{ name: "Todo", amountCard: amountTodoCard, cards: getTodoCard },
-			{ name: "In Progress", amountCard: amountProgressCard, cards: getProgressCard },
-			{ name: "Completed", amountCard: amountCompleteCard, cards: getCompleteCard },
+			{ name: "Todo", amountCard: getTodoCard.length, cards: getTodoCard },
+			{ name: "In Progress", amountCard: getProgressCard.length, cards: getProgressCard },
+			{ name: "Completed", amountCard: getCompleteCard.length, cards: getCompleteCard },
 		];
 		return res.json(dataResult);
 	} catch (error) {

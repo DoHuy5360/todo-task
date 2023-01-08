@@ -14,6 +14,10 @@ const schema = mongoose.Schema(
 			type: String,
 			require: false,
 		},
+		owner: {
+			type: String,
+			require: true,
+		},
 	},
 	{ timestamps: true }
 );

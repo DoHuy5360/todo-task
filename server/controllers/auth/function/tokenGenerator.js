@@ -10,3 +10,4 @@ function generateToken(len) {
 	}
 	return token;
 }
+export default generateToken;

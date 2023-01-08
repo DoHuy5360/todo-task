@@ -5,35 +5,34 @@ import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.j
 import { useState } from "react";
 import ServerLoadingAnimation from "../animation/ServerLoadingAnimation.js";
 import Login from "../test/Login.js";
+import Authentication from "../test/Authentication.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const auth = localStorage.getItem("auth");
-	if (!auth) {
-		return <Login />;
-	}
 	return (
-		<Router>
-			<div className="flex w-full h-fit min-h-screen max-h-screen">
-				<div className={[showSidebar ? "block" : "hidden", "xl:w-60 w-14"].join(" ")}>
-					<Sidebar />
-				</div>
-				<div className={[showSidebar ? "xl:w-full w-[calc(100%-56px)]" : "w-full", "flex flex-col"].join(" ")}>
-					<Header setShowSidebar={setShowSidebar} />
-					<div className="xl:px-7 px-4 overflow-y-scroll">
-						<Routes>
-							<Route exact path="/" element={<Content />}></Route>
-							<Route path="/start" element={<Start />}></Route>
-							<Route path="/projects" element={<Project />}></Route>
-							<Route path="/chat" element={<Chat />}></Route>
-							<Route path="/calendar" element={<Calendar />}></Route>
-							<Route path="/setting" element={<Setting />}></Route>
-							<Route path="/logout" element={<ServerLoadingAnimation visible={true} />}></Route>
-							<Route path="/login" element={<Login />}></Route>
-						</Routes>
+		<Authentication>
+			<Router>
+				<div className="flex w-full h-fit min-h-screen max-h-screen">
+					<div className={[showSidebar ? "block" : "hidden", "xl:w-60 w-14"].join(" ")}>
+						<Sidebar />
+					</div>
+					<div className={[showSidebar ? "xl:w-full w-[calc(100%-56px)]" : "w-full", "flex flex-col"].join(" ")}>
+						<Header setShowSidebar={setShowSidebar} />
+						<div className="xl:px-7 px-4 overflow-y-scroll">
+							<Routes>
+								<Route exact path="/" element={<Content />}></Route>
+								<Route path="/start" element={<Start />}></Route>
+								<Route path="/projects" element={<Project />}></Route>
+								<Route path="/chat" element={<Chat />}></Route>
+								<Route path="/calendar" element={<Calendar />}></Route>
+								<Route path="/setting" element={<Setting />}></Route>
+								<Route path="/logout" element={<ServerLoadingAnimation visible={true} />}></Route>
+								<Route path="/login" element={<Login />}></Route>
+							</Routes>
+						</div>
 					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</Authentication>
 	);
 }
 

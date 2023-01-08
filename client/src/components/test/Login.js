@@ -2,28 +2,35 @@ import { useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Logo, Wave } from "../image/Image";
 function Login() {
-	const [login, SetLogin] = useState(false);
+	const [login, SetLogin] = useState(true);
 	const formName = login ? { main: "Sign up", reverse: "Log in", exist: "Don't have an account yet?", slogan: "Sometimes, we need to rest..." } : { main: "Log in", reverse: "Sign up", exist: "Already have an account?", slogan: "Work, work more, work forever!" };
 	const emailForm = useRef();
 	const password = useRef();
 	function requestAuth(event) {
+		const dataForm = {
+			email: emailForm.current.value,
+			password: password.current.value,
+		};
 		event.preventDefault();
 		if (login) {
-			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, { method: "POST" })
+			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(dataForm),
+			})
 				.then((res) => res.json())
 				.then((data) => {
-					localStorage.setItem("auth", data.auth);
-					if (data.auth) {
-						const URL = window.location;
-						const newPath = `${URL.origin}/`;
-						window.location.href = newPath;
+					if (data) {
+						const { token, user } = data;
+						document.cookie = `token=${token}; secure;`;
+						document.cookie = `user=${JSON.stringify(user)}; secure;`;
+						window.location.reload();
 					}
 				});
 		} else {
-			const dataForm = {
-				email: emailForm.current.value,
-				password: password.current.value,
-			};
 			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/new-user`, {
 				method: "POST",
 				headers: {
@@ -31,10 +38,17 @@ function Login() {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(dataForm),
-			});
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					document.cookie = `token=${data.token}; secure;`;
+				});
 		}
 	}
-
+	function fastFill() {
+		emailForm.current.value = "token@gmail.com";
+		password.current.value = "0123456789";
+	}
 	return (
 		<form onSubmit={requestAuth} className={[login ? "flex-row-reverse" : "flex-row", "select-none flex"].join(" ")}>
 			<div className="grid place-items-center xl:w-1/2 w-screen h-screen">
@@ -54,9 +68,12 @@ function Login() {
 						<input ref={emailForm} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" placeholder="Email" type="email" spellCheck="false" required />
 						<input ref={password} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
 					</div>
-					<div>
+					<div className="flex gap-4 items-center">
 						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="submit">
 							Done!
+						</button>
+						<button className="bg-amber-400 text-sm rounded-sm px-5 py-1" onClick={fastFill} type="button">
+							Fill
 						</button>
 					</div>
 					<div className="flex gap-1 items-center">

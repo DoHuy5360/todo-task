@@ -9,16 +9,16 @@ import ContextMenu from "./components/ContextMenu/ContextMenu.js";
 import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
 function Content() {
-	console.log("render");
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	const [animationLoading, setAnimationLoading] = useState(true);
-	const token = document.cookie
-		.split(";")
-		.filter((key) => {
-			return key.split("=")[0] == "token";
-		})[0]
-		.split("=")[1];
+	const token =
+		document.cookie
+			.split(";")
+			.filter((key) => {
+				return key.split("=")[0].trim() == "token";
+			})[0]
+			?.split("=")[1] || console.warn("Invalid token key");
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${token}`)
 			.then((res) => res.json())

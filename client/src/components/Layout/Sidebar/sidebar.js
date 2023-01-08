@@ -3,11 +3,12 @@ import { IoIosLogOut } from "react-icons/io";
 import { BsBarChartLine, BsChatLeftDots, BsCalendar3 } from "react-icons/bs";
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import COOKIES from "../../test/class/COOKIES";
+import BROWSER from "../../test/class/BROWSER";
 function Sidebar() {
 	function logout() {
-		document.cookie = "token=;expires = Thu, 01 Jan 1970 00:00:00 GMT";
-		document.cookie = "user=;expires = Thu, 01 Jan 1970 00:00:00 GMT";
-		window.location.reload();
+		const browser = new COOKIES();
+		browser.delete_all_cookies().then(() => new BROWSER().reload());
 	}
 	return (
 		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">

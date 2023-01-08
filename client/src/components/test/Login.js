@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Logo, Wave } from "../image/Image";
+import COOKIES from "./class/COOKIES";
 function Login() {
 	const [login, SetLogin] = useState(true);
 	const formName = login ? { main: "Sign up", reverse: "Log in", exist: "Don't have an account yet?", slogan: "Sometimes, we need to rest..." } : { main: "Log in", reverse: "Sign up", exist: "Already have an account?", slogan: "Work, work more, work forever!" };
@@ -13,6 +14,7 @@ function Login() {
 		};
 		event.preventDefault();
 		if (login) {
+			new COOKIES().delete_all_cookies();
 			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/login`, {
 				method: "POST",
 				headers: {

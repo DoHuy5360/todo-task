@@ -3,7 +3,13 @@ import LogoAnimation from "../animation/LogoAnimation";
 import Login from "./Login";
 
 function Authentication({ children }) {
-	const token = document.cookie.split(";")[0].split("=")[1];
+	const token =
+		document.cookie
+			.split(";")
+			.filter((key) => {
+				return key.split("=")[0].trim() == "token";
+			})[0]
+			?.split("=")[1] || console.warn("Invalid token key");
 	const [showContent, setShowContent] = useState(null);
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/open`, {

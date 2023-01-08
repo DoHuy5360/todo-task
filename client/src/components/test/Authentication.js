@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import LogoAnimation from "../animation/LogoAnimation";
 import Login from "./Login";
 
 function Authentication({ children }) {
@@ -29,7 +30,7 @@ function Authentication({ children }) {
 		return <Login />;
 	} else {
 		if (showContent === null) {
-			return <></>;
+			return <LogoAnimation />;
 		} else if (showContent) {
 			return children;
 		} else {

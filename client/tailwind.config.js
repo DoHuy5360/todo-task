@@ -17,11 +17,17 @@ module.exports = {
 					"50%": { transform: "translateY(-20px)" },
 					"100%": { transform: "translateY(0)" },
 				},
+				dotWave: {
+					"0%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-2px)" },
+					"100%": { transform: "translateY(0)" },
+				},
 			},
 			animation: {
 				ledBlink: "ledBlink 200ms linear infinite",
 				dotScale: "dotScale 1000ms linear infinite",
 				flyUp: "flyUp 5000ms cubic-bezier(0.70, 0.30, 0.30, 0.70) infinite",
+				dotWave: "dotWave 200ms linear infinite",
 			},
 		},
 	},

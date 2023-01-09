@@ -54,8 +54,8 @@ function Login() {
 		}
 	}
 	function fastFill() {
-		emailForm.current.value = "token@gmail.com";
-		password.current.value = "0123456789";
+		emailForm.current.value = "guest@gmail.com";
+		password.current.value = "IamHacker123";
 	}
 	return (
 		<form onSubmit={requestAuth} className={[login ? "flex-row-reverse" : "flex-row", "select-none flex"].join(" ")}>
@@ -77,11 +77,11 @@ function Login() {
 						<input ref={password} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
 					</div>
 					<div className="flex gap-4 items-center">
+						<button className="bg-amber-400 text-sm rounded-sm px-5 py-1" onClick={fastFill} type="button">
+							Login as Guest
+						</button>
 						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="submit">
 							Done!
-						</button>
-						<button className="bg-amber-400 text-sm rounded-sm px-5 py-1" onClick={fastFill} type="button">
-							Fill
 						</button>
 					</div>
 					<div className="flex gap-1 items-center">

@@ -8,7 +8,19 @@ import BROWSER from "../../test/class/BROWSER";
 function Sidebar() {
 	function logout() {
 		const cookieBank = new COOKIES();
-		cookieBank.delete_all_cookies().then(() => new BROWSER().reload());
+		const token = cookieBank.give_me_value_of("token");
+		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/refresh`, {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ token }),
+		}).then(() => {
+			cookieBank.delete_all_cookies().then(() => {
+				new BROWSER().reload();
+			});
+		});
 	}
 	return (
 		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">

@@ -29,5 +29,14 @@ const tokenAuthentication = async (req, res) => {
 		res.send(false);
 	}
 };
-
-export { loginAuthentication, tokenAuthentication };
+const refreshToken = async (req, res) => {
+	const { token } = req.body;
+	const newToken = generateToken(333);
+	try {
+		await userModel.findOneAndUpdate({ token }, { token: newToken });
+		res.send("Update success!");
+	} catch (error) {
+		res.send("Update fail!");
+	}
+};
+export { loginAuthentication, tokenAuthentication, refreshToken };

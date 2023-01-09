@@ -1,29 +1,35 @@
 import { todoCardModel } from "../database/models/todoCardModel.js";
-import { userModel } from "../database/models/userModel.js";
+import USER from "./class/USER.js";
 
 const showCard = async (req, res) => {
 	const token = req.params.token;
-	const { _id } = await userModel.findOne({ token }).then((rsult) => rsult);
-	try {
-		const dataResult = {};
-		const getTodoCard = await todoCardModel.find({ owner: _id, status: "Todo" });
-		const getProgressCard = await todoCardModel.find({ owner: _id, status: "In Progress" });
-		const getCompleteCard = await todoCardModel.find({ owner: _id, status: "Completed" });
+	const userBank = new USER();
+	const { _id } = await userBank.give_me_user_have_this({ token });
+	if (_id !== undefined) {
+		try {
+			const dataResult = {};
+			const getTodoCard = await todoCardModel.find({ owner: _id, status: "Todo" });
+			const getProgressCard = await todoCardModel.find({ owner: _id, status: "In Progress" });
+			const getCompleteCard = await todoCardModel.find({ owner: _id, status: "Completed" });
 
-		dataResult.columns = [
-			{ name: "Todo", amountCard: getTodoCard.length, cards: getTodoCard },
-			{ name: "In Progress", amountCard: getProgressCard.length, cards: getProgressCard },
-			{ name: "Completed", amountCard: getCompleteCard.length, cards: getCompleteCard },
-		];
-		return res.json(dataResult);
-	} catch (error) {
-		return res.send("Error: ", error);
+			dataResult.columns = [
+				{ name: "Todo", amountCard: getTodoCard.length, cards: getTodoCard },
+				{ name: "In Progress", amountCard: getProgressCard.length, cards: getProgressCard },
+				{ name: "Completed", amountCard: getCompleteCard.length, cards: getCompleteCard },
+			];
+			res.json(dataResult);
+		} catch (error) {
+			res.send("Error: ", error);
+		}
+	} else {
+		res.send("Invalid token");
 	}
 };
 
 const addCard = async (req, res) => {
 	const { status, title, description, token } = req.body;
-	const { _id } = (await userModel.findOne({ token }).then((rsult) => rsult)) || {};
+	const userBank = new USER();
+	const { _id } = await userBank.give_me_user_have_this({ token });
 	if (_id !== undefined) {
 		try {
 			const addTodoCard = new todoCardModel({

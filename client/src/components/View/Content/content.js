@@ -8,17 +8,18 @@ import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
 import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
+import COOKIES from "../../test/class/COOKIES.js";
 function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	const [animationLoading, setAnimationLoading] = useState(true);
-	const token =
-		document.cookie
-			.split(";")
-			.filter((key) => {
-				return key.split("=")[0].trim() == "token";
-			})[0]
-			?.split("=")[1] || console.warn("Invalid token key");
+	const { showContextMenu } = useContext(contextMenuContext);
+	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
+	const [showDialog, setShowDialog] = useState(false);
+	const [dialogStatus, setDialogStatus] = useState("");
+	const [dialogContent, setDialogContent] = useState({});
+	const cookieBank = new COOKIES();
+	const token = cookieBank.give_me_value_of("token");
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${token}`)
 			.then((res) => res.json())
@@ -27,11 +28,7 @@ function Content() {
 				setAnimationLoading(false);
 			});
 	}, [content]);
-	const { showContextMenu } = useContext(contextMenuContext);
-	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
-	const [showDialog, setShowDialog] = useState(false);
-	const [dialogStatus, setDialogStatus] = useState("");
-	const [dialogContent, setDialogContent] = useState({});
+
 	return (
 		<DndProvider backend={HTML5Backend}>
 			<ServerLoadingAnimation visible={animationLoading} />

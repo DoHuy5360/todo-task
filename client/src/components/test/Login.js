@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
 import { Logo, Wave } from "../image/Image";
+import BROWSER from "./class/BROWSER";
 import COOKIES from "./class/COOKIES";
 function Login() {
 	const [login, SetLogin] = useState(true);
@@ -27,9 +28,10 @@ function Login() {
 				.then((data) => {
 					if (data) {
 						const { token, user } = data;
-						document.cookie = `token=${token}; secure;`;
-						document.cookie = `user=${JSON.stringify(user)}; secure;`;
-						window.location.reload();
+						const cookieBank = new COOKIES();
+						cookieBank.store_these_cookies({ token, user: JSON.stringify(user) }).then(() => {
+							new BROWSER().reload();
+						});
 					}
 				});
 		} else {
@@ -44,9 +46,10 @@ function Login() {
 				.then((res) => res.json())
 				.then((data) => {
 					const { token, user } = data;
-					document.cookie = `token=${token}; secure;`;
-					document.cookie = `user=${JSON.stringify(user)}; secure;`;
-					window.location.reload();
+					const cookieBank = new COOKIES();
+					cookieBank.store_these_cookies({ token, user: JSON.stringify(user) }).then(() => {
+						new BROWSER().reload();
+					});
 				});
 		}
 	}

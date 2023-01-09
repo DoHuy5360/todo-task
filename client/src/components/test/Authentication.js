@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import LogoAnimation from "../animation/LogoAnimation";
+import COOKIES from "./class/COOKIES";
 import Login from "./Login";
 
 function Authentication({ children }) {
-	const token =
-		document.cookie
-			.split(";")
-			.filter((key) => {
-				return key.split("=")[0].trim() == "token";
-			})[0]
-			?.split("=")[1] || console.warn("Invalid token key");
+	const cookieBank = new COOKIES();
+	const token = cookieBank.give_me_value_of("token");
 	const [showContent, setShowContent] = useState(null);
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/auth/open`, {

@@ -7,8 +7,8 @@ import COOKIES from "../../test/class/COOKIES";
 import BROWSER from "../../test/class/BROWSER";
 function Sidebar() {
 	function logout() {
-		const browser = new COOKIES();
-		browser.delete_all_cookies().then(() => new BROWSER().reload());
+		const cookieBank = new COOKIES();
+		cookieBank.delete_all_cookies().then(() => new BROWSER().reload());
 	}
 	return (
 		<div className="bg-slate-400 flex flex-col xl:p-7 px-3 py-5 xl:h-screen h-full">

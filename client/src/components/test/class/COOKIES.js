@@ -45,5 +45,18 @@ class COOKIES extends DATA_TYPE {
 	delete_all_cookies() {
 		return this.delete_those_cookies(this.give_me_all_cookies("name"));
 	}
+	store_these_cookies(cookies = {}) {
+		if (this.object_not_empty(cookies)) {
+			for (const name in cookies) {
+				if (Object.hasOwnProperty.call(cookies, name)) {
+					const value = cookies[name];
+					document.cookie = `${name}=${value}`;
+				}
+			}
+			return this;
+		} else {
+			console.warn("store_these_cookies(cookies = {}) need to passed at least one object that contain name and value of cookie");
+		}
+	}
 }
 export default COOKIES;

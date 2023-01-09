@@ -1,11 +1,15 @@
 import "./App.css";
 import Layout from "./components/Layout/layout.js";
 import { ContextMenuProvider } from "./components/Context/ContextMenuProvider";
+import { DialogProvider } from "./components/Context/DialogContext";
+
 function App() {
 	return (
-		<ContextMenuProvider>
-			<Layout />
-		</ContextMenuProvider>
+		<DialogProvider>
+			<ContextMenuProvider>
+				<Layout />
+			</ContextMenuProvider>
+		</DialogProvider>
 	);
 }
 

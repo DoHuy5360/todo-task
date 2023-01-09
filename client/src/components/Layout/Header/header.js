@@ -10,7 +10,7 @@ function Header({ setShowSidebar }) {
 	function handleShowSidebar() {
 		setShowContextMenu({
 			visible: false,
-			dateEvent: null,
+			dataEvent: null,
 		});
 		setShowSidebar((pre) => (pre ? false : true));
 	}

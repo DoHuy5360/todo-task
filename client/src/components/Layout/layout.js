@@ -1,12 +1,22 @@
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header/header.js";
 import Sidebar from "./Sidebar/sidebar.js";
 import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.js";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Authentication from "../test/Authentication.js";
+import { contextMenuContext } from "../Context/ContextMenuProvider.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
-
+	const { setShowContextMenu } = useContext(contextMenuContext);
+	useEffect(() => {
+		window.addEventListener("click", (event) => {
+			event.stopImmediatePropagation();
+			setShowContextMenu({
+				visible: false,
+				dataEvent: null,
+			});
+		});
+	}, []);
 	return (
 		<Authentication>
 			<Router>

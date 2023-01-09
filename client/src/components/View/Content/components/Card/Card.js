@@ -6,9 +6,9 @@ import { BsArrowsMove } from "react-icons/bs";
 import { useDrag } from "react-dnd";
 import { useRef, useContext } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
-function Card({ _id, status, title, description, updatedAt, id, colId, setCardsIdContextMenu }) {
+function Card({ _id, status, title, description, updatedAt, id, colId }) {
 	const friendlyUpdatedDate = useRef(updatedAt.slice(0, 10));
-	const { setShowContextMenu } = useContext(contextMenuContext);
+	const { setShowContextMenu, setCardsIdContextMenu } = useContext(contextMenuContext);
 	const [{ isDragging }, drag] = useDrag({
 		type: "card",
 		item: {
@@ -32,17 +32,11 @@ function Card({ _id, status, title, description, updatedAt, id, colId, setCardsI
 		}
 	}
 	function handleContextMenu(event) {
-		setShowContextMenu((pre) =>
-			pre.visible
-				? {
-						visible: false,
-						dataEvent: null,
-				  }
-				: {
-						visible: true,
-						dataEvent: event,
-				  }
-		);
+		event.stopPropagation();
+		setShowContextMenu({
+			visible: true,
+			dataEvent: event,
+		});
 		setCardsIdContextMenu({ _id, status, title, description, colId });
 	}
 	return (

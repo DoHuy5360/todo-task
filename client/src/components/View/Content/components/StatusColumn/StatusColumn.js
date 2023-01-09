@@ -3,7 +3,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { GoPrimitiveDot } from "react-icons/go";
 import { useContext } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
-function StatusColumn({ name, amountCard, colId, setContent, setShowDialog, setDialogStatus, children }) {
+import { dialogContext } from "../../../../Context/DialogContext";
+function StatusColumn({ name, amountCard, colId, setContent, children }) {
+	const { setShowDialog, setDialogStatus } = useContext(dialogContext);
 	const { setShowContextMenu } = useContext(contextMenuContext);
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",

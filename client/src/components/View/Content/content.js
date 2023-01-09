@@ -3,21 +3,15 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
-import { contextMenuContext } from "../../Context/ContextMenuProvider.js";
 import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
 import COOKIES from "../../test/class/COOKIES.js";
 function Content() {
 	const [content, setContent] = useState(false);
 	const [columns, setColumns] = useState([]);
 	const [animationLoading, setAnimationLoading] = useState(true);
-	const { showContextMenu } = useContext(contextMenuContext);
-	const [cardsIdContextMenu, setCardsIdContextMenu] = useState("");
-	const [showDialog, setShowDialog] = useState(false);
-	const [dialogStatus, setDialogStatus] = useState("");
-	const [dialogContent, setDialogContent] = useState({});
 	const cookieBank = new COOKIES();
 	const token = cookieBank.give_me_value_of("token");
 	useEffect(() => {
@@ -45,18 +39,17 @@ function Content() {
 					</div>
 					<div className="flex xl:flex-row flex-col gap-4 h-full relative">
 						{columns.map((column, colidx) => (
-							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent} setShowDialog={setShowDialog} setDialogStatus={setDialogStatus}>
+							<StatusColumn {...column} key={"column-" + colidx} colId={colidx} setContent={setContent}>
 								{column.cards.map((card, idx) => (
-									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} setCardsIdContextMenu={setCardsIdContextMenu} />
+									<Card {...card} key={`card-${colidx}-${idx}`} id={`card-${colidx}-${idx}`} colId={colidx} />
 								))}
 							</StatusColumn>
 						))}
 					</div>
 				</div>
-
-				<ContextMenu visible={showContextMenu.visible} dataEvent={showContextMenu.dataEvent} cardData={cardsIdContextMenu} setContent={setContent} setShowDialog={setShowDialog} setDialogContent={setDialogContent} />
+				<ContextMenu />
 			</div>
-			<Dialog statusColumn={dialogStatus} visible={showDialog} setContent={setContent} setShowDialog={setShowDialog} dialogContent={dialogContent} setDialogContent={setDialogContent} />
+			<Dialog setContent={setContent} />
 		</DndProvider>
 	);
 }

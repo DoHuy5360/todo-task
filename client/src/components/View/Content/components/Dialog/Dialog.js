@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { dialogContext } from "../../../../Context/DialogContext";
 import COOKIES from "../../../../test/class/COOKIES";
 
-function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogContent, setDialogContent }) {
+function Dialog({ setContent }) {
+	const { showDialog, setShowDialog, dialogStatus, dialogContent, setDialogContent } = useContext(dialogContext);
 	const cartStatus = useRef();
 	const cartTitle = useRef();
 	const cartDescription = useRef();
@@ -44,8 +46,8 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 			.then((res) => res.status)
 			.then((status) => (status === 200 ? alert("Update successfully!") : alert("Update failure!")));
 	}
-	return visible ? (
-		<div className="fixed h-full w-full bg-slate-300/50">
+	return showDialog ? (
+		<div className="fixed h-screen w-screen top-0 bg-slate-300/50">
 			<form ref={cardAddForm} onSubmit={dialogContent._id ? updateCard : addNewCard} className="flex flex-col bg-white p-4 gap-3 xl:rounded fixed xl:w-[500px] w-full xl:h-[500px] h-full top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] drop-shadow-md">
 				<div className="flex flex-col gap-2 h-[90%]">
 					<div className="flex flex-col xl:h-1/5 h-[80px] gap-1">
@@ -77,7 +79,7 @@ function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogConten
 						Close
 					</button>
 					<div ref={cartStatus} className="font-semibold select-none">
-						{dialogContent.status || statusColumn}
+						{dialogContent.status || dialogStatus}
 					</div>
 					<div className="flex gap-3">
 						<button

@@ -1,7 +1,11 @@
 import { useRef, useContext } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
-function ContextMenu({ visible, dataEvent, cardData, setContent, setShowDialog, setDialogContent }) {
-	const { setShowContextMenu } = useContext(contextMenuContext);
+import { dialogContext } from "../../../../Context/DialogContext";
+function ContextMenu() {
+	const { setShowContextMenu, cardsIdContextMenu, showContextMenu } = useContext(contextMenuContext);
+	const { visible, dataEvent } = showContextMenu;
+	const { _id, status, title, description, colId } = cardsIdContextMenu;
+	const { setShowDialog, setContent, setDialogContent } = useContext(dialogContext);
 	const cntxtMenu = useRef();
 	if (dataEvent) {
 		cntxtMenu.current = {
@@ -10,9 +14,9 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, setShowDialog, 
 		};
 	}
 	function deleteCard(event) {
-		const isDeleteCard = window.confirm(`Accept to delete this card?\nCard title: ${cardData.title}`);
+		const isDeleteCard = window.confirm(`Accept to delete this card?\nCard title: ${title}`);
 		if (isDeleteCard) {
-			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${cardData._id}/delete`, {
+			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${_id}/delete`, {
 				method: "DELETE",
 			}).then((res) => {
 				if (res.status === 200) {
@@ -30,7 +34,6 @@ function ContextMenu({ visible, dataEvent, cardData, setContent, setShowDialog, 
 			});
 		}
 	}
-	const { _id, status, title, description, colId } = cardData;
 	function handleUpdateCardContent(event) {
 		setShowContextMenu({
 			visible: false,

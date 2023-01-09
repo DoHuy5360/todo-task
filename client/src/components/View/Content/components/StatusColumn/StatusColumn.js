@@ -4,23 +4,29 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { useContext } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
 import { dialogContext } from "../../../../Context/DialogContext";
-function StatusColumn({ name, amountCard, colId, setContent, children }) {
+import CARD from "../../../../test/class/CARD.js";
+import { refreshContext } from "../../../../Context/RefreshContext";
+function StatusColumn({ name, amountCard, colId, children }) {
+	const { setRefresh } = useContext(refreshContext);
 	const { setShowDialog, setDialogStatus } = useContext(dialogContext);
 	const { setShowContextMenu } = useContext(contextMenuContext);
 	const [{ isOver }, drop] = useDrop({
 		accept: "card",
 		drop: (item, monitor) => {
-			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/update-card/${item._id}/attr?status=${name}`).then((res) => {
-				if (res.status === 200) {
-					setContent((pre) => {
+			const { _id } = item;
+			const cardBank = new CARD("Update");
+			cardBank
+				.update_this_card_status(_id, name)
+				.then(() => {
+					setRefresh((pre) => {
 						return pre ? false : true;
 					});
 					setShowContextMenu({
 						visible: false,
 						dataEvent: null,
 					});
-				}
-			});
+				})
+				.catch();
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),

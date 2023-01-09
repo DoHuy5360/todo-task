@@ -5,6 +5,7 @@ import { Content, Start, Project, Chat, Calendar, Setting } from "../View/view.j
 import { useContext, useEffect, useState } from "react";
 import Authentication from "../test/Authentication.js";
 import { contextMenuContext } from "../Context/ContextMenuProvider.js";
+import { RefreshContext } from "../Context/RefreshContext.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const { setShowContextMenu } = useContext(contextMenuContext);
@@ -28,7 +29,15 @@ function Layout() {
 						<Header setShowSidebar={setShowSidebar} />
 						<div className="xl:px-7 px-4 overflow-y-scroll">
 							<Routes>
-								<Route exact path="/" element={<Content />}></Route>
+								<Route
+									exact
+									path="/"
+									element={
+										<RefreshContext>
+											<Content />
+										</RefreshContext>
+									}
+								></Route>
 								<Route path="/start" element={<Start />}></Route>
 								<Route path="/projects" element={<Project />}></Route>
 								<Route path="/chat" element={<Chat />}></Route>

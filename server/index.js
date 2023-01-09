@@ -16,7 +16,9 @@ app.use(express.json());
 app.get("/:token", [cors(corsConfig)], showCard);
 app.options("/add-card", cors(corsConfig), addCard);
 app.post("/add-card", cors(corsConfig), addCard);
-app.get("/update-card/:id/attr", cors(corsConfig), updateStatusCard);
+
+app.options("/update-card/status", cors(corsConfig), updateStatusCard);
+app.post("/update-card/status", cors(corsConfig), updateStatusCard);
 
 app.options("/:id/update", cors(corsConfig), updateCard);
 app.post("/:id/update", cors(corsConfig), updateCard);

@@ -50,8 +50,9 @@ const addCard = async (req, res) => {
 const updateStatusCard = async (req, res) => {
 	// res.send(req.params.id);
 	// res.send(req.query.status);
-	const cardSelected = await todoCardModel.findById(req.params.id);
-	cardSelected.status = req.query.status;
+	const { _id, status } = req.body;
+	const cardSelected = await todoCardModel.findById(_id);
+	cardSelected.status = status;
 	cardSelected.save();
 	res.send("Update successfully!");
 };

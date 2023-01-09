@@ -1,7 +1,9 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, memo } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
 import { dialogContext } from "../../../../Context/DialogContext";
+import { ChangeStatus } from "./components/ChangeStatus.js";
 function ContextMenu() {
+	// console.log("Context render");
 	const { setShowContextMenu, cardsIdContextMenu, showContextMenu } = useContext(contextMenuContext);
 	const { visible, dataEvent } = showContextMenu;
 	const { _id, status, title, description, colId } = cardsIdContextMenu;
@@ -13,7 +15,7 @@ function ContextMenu() {
 			top: `${dataEvent.clientY - 10}px`,
 		};
 	}
-	function deleteCard(event) {
+	function deleteCard() {
 		const isDeleteCard = window.confirm(`Accept to delete this card?\nCard title: ${title}`);
 		if (isDeleteCard) {
 			fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${_id}/delete`, {
@@ -47,35 +49,11 @@ function ContextMenu() {
 			description,
 		});
 	}
-	function ProcessButton() {
-		if (colId === 0) {
-			return (
-				<>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">In process</div>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">Completed</div>
-				</>
-			);
-		} else if (colId === 0) {
-			return (
-				<>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">Todo</div>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">Completed</div>
-				</>
-			);
-		} else {
-			return (
-				<>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">Todo</div>
-					<div className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">In process</div>
-				</>
-			);
-		}
-	}
 	return visible ? (
 		<div style={cntxtMenu.current} className="z-20 absolute flex flex-col bg-white p-3 xl:rounded-sm rounded drop-shadow-md translate-x-[-100%] translate-y-[-100%]">
 			<div className="flex flex-col gap-[1px]">
 				<div className="">
-					<ProcessButton />
+					<ChangeStatus _id={_id} currentStatus={status} />
 				</div>
 				<div className="flex flex-col">
 					<div onClick={handleUpdateCardContent} className="py-1 px-2 text-sm hover:bg-slate-100 cursor-pointer">
@@ -92,4 +70,4 @@ function ContextMenu() {
 	);
 }
 
-export default ContextMenu;
+export default memo(ContextMenu);

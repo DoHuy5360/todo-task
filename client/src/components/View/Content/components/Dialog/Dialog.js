@@ -1,9 +1,12 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, memo } from "react";
 import { dialogContext } from "../../../../Context/DialogContext";
+import { refreshContext } from "../../../../Context/RefreshContext";
 import COOKIES from "../../../../test/class/COOKIES";
 
-function Dialog({ setContent }) {
+function Dialog() {
+	// console.log("Dialog render");
 	const { showDialog, setShowDialog, dialogStatus, dialogContent, setDialogContent } = useContext(dialogContext);
+	const { setRefresh } = useContext(refreshContext);
 	const cartStatus = useRef();
 	const cartTitle = useRef();
 	const cartDescription = useRef();
@@ -66,9 +69,7 @@ function Dialog({ setContent }) {
 				<div className="flex justify-between items-center text-sm h-[10%]">
 					<button
 						onClick={(event) => {
-							setContent((pre) => {
-								return pre ? false : true;
-							});
+							setRefresh();
 							setDialogContent({});
 							setShowDialog(false);
 						}}
@@ -105,4 +106,4 @@ function Dialog({ setContent }) {
 	);
 }
 
-export default Dialog;
+export default memo(Dialog);

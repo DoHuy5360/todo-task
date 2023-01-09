@@ -2,13 +2,14 @@ import { userModel } from "../../database/models/userModel.js";
 import Auth from "./class/Auth.js";
 import * as dotenv from "dotenv";
 import generateToken from "./function/tokenGenerator.js";
+import USER from "../class/USER.js";
 dotenv.config();
 const loginAuthentication = async (req, res) => {
 	const { email, password } = req.body;
-	const userInfomation = await userModel.find({ email: email, password: password });
-	if (userInfomation.length !== 0) {
-		const { _id } = userInfomation[0];
-		const user = new Auth(_id.toHexString());
+	const userBank = new USER();
+	const { _id, name } = await userBank.give_me_user_have_this({ email: email, password: password });
+	if (_id !== undefined) {
+		const user = new Auth(name);
 		const token = generateToken(333);
 		await userModel.findOneAndUpdate({ email }, { token });
 		res.json({

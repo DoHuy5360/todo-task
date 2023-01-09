@@ -13,8 +13,8 @@ const newUser = async (req, res) => {
 				token,
 			});
 			addNewUser.save().then((rslt) => {
-				const { _id } = rslt;
-				const user = new Auth(_id.toHexString());
+				const { name } = rslt;
+				const user = new Auth(name);
 				res.json({ token, user });
 			});
 		} catch (error) {

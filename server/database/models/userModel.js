@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
+	name: {
+		type: String,
+		require: false,
+	},
 	email: {
 		type: String,
 		require: true,

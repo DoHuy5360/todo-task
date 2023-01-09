@@ -1,7 +1,6 @@
 class Auth {
-	constructor(_id) {
-		this.id = _id;
+	constructor(_name) {
+		this.name = _name;
 	}
-	CheckLimitAccess() {}
 }
 export default Auth;

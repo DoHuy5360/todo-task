@@ -21,18 +21,24 @@ const showCard = async (req, res) => {
 	}
 };
 
-const addCard = (req, res) => {
-	const { status, title, description } = req.body;
-	try {
-		const addTodoCard = new todoCardModel({
-			status,
-			title,
-			description,
-		});
-		addTodoCard.save();
-		return res.send("Add successfully!");
-	} catch (error) {
-		return res.send(error);
+const addCard = async (req, res) => {
+	const { status, title, description, token } = req.body;
+	const { _id } = (await userModel.findOne({ token }).then((rsult) => rsult)) || {};
+	if (_id !== undefined) {
+		try {
+			const addTodoCard = new todoCardModel({
+				status,
+				title,
+				description,
+				owner: _id,
+			});
+			addTodoCard.save();
+			res.send("Add successfully!");
+		} catch (error) {
+			res.send(error);
+		}
+	} else {
+		res.send("Invalid token");
 	}
 };
 const updateStatusCard = async (req, res) => {

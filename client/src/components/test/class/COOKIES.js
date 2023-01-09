@@ -8,6 +8,20 @@ class COOKIES extends DATA_TYPE {
 	then(action) {
 		return action();
 	}
+	give_me_value_of(cookieName = "") {
+		if (this.give_me_all_cookies("name").includes(cookieName)) {
+			return (
+				this.cookies
+					.filter((key) => {
+						return key.split("=")[0].trim() == cookieName;
+					})[0]
+					?.split("=")[1] || console.warn(`Invalid ${cookieName} name!`)
+			);
+		} else {
+			console.warn("give_me_value_of(cookieName) need passed one cookie name");
+			return undefined;
+		}
+	}
 	give_me_all_cookies(type = "name") {
 		if (["name", "value"].includes(type)) {
 			return this.cookies.map((rawCookie) => {

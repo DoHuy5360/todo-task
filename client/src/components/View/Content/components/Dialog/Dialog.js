@@ -1,16 +1,19 @@
 import { useRef } from "react";
+import COOKIES from "../../../../test/class/COOKIES";
 
 function Dialog({ statusColumn, visible, setContent, setShowDialog, dialogContent, setDialogContent }) {
 	const cartStatus = useRef();
 	const cartTitle = useRef();
 	const cartDescription = useRef();
 	const cardAddForm = useRef();
+	const cookieBank = new COOKIES();
 	function addNewCard(e) {
 		e.preventDefault();
 		const cardData = {
 			status: cartStatus.current.innerText,
 			title: cartTitle.current.value,
 			description: cartDescription.current.value,
+			token: cookieBank.give_me_value_of("token"),
 		};
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/add-card`, {
 			method: "POST",

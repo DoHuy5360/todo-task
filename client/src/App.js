@@ -2,14 +2,17 @@ import "./App.css";
 import Layout from "./components/Layout/layout.js";
 import { ContextMenuProvider } from "./components/Context/ContextMenuProvider";
 import { DialogProvider } from "./components/Context/DialogContext";
+import { OptionBoxProvider } from "./components/Context/OptionBoxContext";
 
 function App() {
 	return (
-		<DialogProvider>
-			<ContextMenuProvider>
-				<Layout />
-			</ContextMenuProvider>
-		</DialogProvider>
+		<OptionBoxProvider>
+			<DialogProvider>
+				<ContextMenuProvider>
+					<Layout />
+				</ContextMenuProvider>
+			</DialogProvider>
+		</OptionBoxProvider>
 	);
 }
 

@@ -6,20 +6,24 @@ import { useContext, useEffect, useState } from "react";
 import Authentication from "../test/Authentication.js";
 import { contextMenuContext } from "../Context/ContextMenuProvider.js";
 import { RefreshContext } from "../Context/RefreshContext.js";
+import OptionBox from "../OptionBox/OptionBox.js";
+import { optionBoxContext } from "../Context/OptionBoxContext.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
 	const { showContextMenu, setShowContextMenu } = useContext(contextMenuContext);
+	const { selects, showOptionBox, setShowOptionBox } = useContext(optionBoxContext);
 	useEffect(() => {
-		if (showContextMenu.visible) {
+		if (showContextMenu.visible || showOptionBox) {
 			window.addEventListener("click", (event) => {
 				event.stopImmediatePropagation();
 				setShowContextMenu({
 					visible: false,
 					dataEvent: null,
 				});
+				setShowOptionBox(false);
 			});
 		}
-	}, [showContextMenu]);
+	}, [showContextMenu, showOptionBox]);
 	return (
 		<Authentication>
 			<Router>
@@ -50,6 +54,11 @@ function Layout() {
 					</div>
 				</div>
 			</Router>
+			<OptionBox>
+				{selects.map((Slct, idx) => (
+					<Slct key={idx} />
+				))}
+			</OptionBox>
 		</Authentication>
 	);
 }

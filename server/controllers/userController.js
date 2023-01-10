@@ -1,6 +1,7 @@
 import { userModel } from "../database/models/userModel.js";
 import Auth from "./auth/class/Auth.js";
 import generateToken from "./auth/function/tokenGenerator.js";
+import USER from "./class/USER.js";
 const newUser = async (req, res) => {
 	const { email, password } = req.body;
 	const isEmailExist = await userModel.find({ email: email });
@@ -24,4 +25,13 @@ const newUser = async (req, res) => {
 		res.send("Email already taken!");
 	}
 };
-export { newUser };
+const updateName = async (req, res) => {
+	const { token, name } = req.body;
+	userModel.findOneAndUpdate({ token }, { name }, { new: true }, (err, doc) => {
+		if (!err) {
+			res.json({ name });
+			console.log(doc);
+		}
+	});
+};
+export { newUser, updateName };

@@ -4,19 +4,20 @@ class COOKIES extends DATA_TYPE {
 	constructor() {
 		super();
 		this.cookies = document.cookie.split(";");
+		this.is_cookie_value_selected = "";
 	}
 	then(action) {
 		return action();
 	}
 	give_me_value_of(cookieName = "") {
 		if (this.give_me_all_cookies("name").includes(cookieName)) {
-			return (
+			this.is_cookie_value_selected =
 				this.cookies
 					.filter((key) => {
 						return key.split("=")[0].trim() == cookieName;
 					})[0]
-					?.split("=")[1] || console.warn(`Invalid ${cookieName} name!`)
-			);
+					?.split("=")[1] || console.warn(`Invalid ${cookieName} name!`);
+			return this.is_cookie_value_selected;
 		} else {
 			console.warn("give_me_value_of(cookieName) need passed one cookie name or this cookie not existing.");
 			return undefined;

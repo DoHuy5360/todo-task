@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LogoAnimation from "../animation/LogoAnimation";
 import COOKIES from "./class/COOKIES";
-import Login from "./Login";
+import Login from "../View/auth/Login";
 
 function Authentication({ children }) {
 	const cookieBank = new COOKIES();

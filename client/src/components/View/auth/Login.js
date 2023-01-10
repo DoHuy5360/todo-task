@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { BsArrowRightShort } from "react-icons/bs";
-import { Logo, Wave } from "../image/Image";
-import BROWSER from "./class/BROWSER";
-import COOKIES from "./class/COOKIES";
+import { Logo, Wave } from "../../image/Image";
+import BROWSER from "../../test/class/BROWSER";
+import COOKIES from "../../test/class/COOKIES";
 function Login() {
 	const [login, SetLogin] = useState(true);
 	const formName = login ? { main: "Sign up", reverse: "Log in", exist: "Don't have an account yet?", slogan: "Sometimes, we need to rest..." } : { main: "Log in", reverse: "Sign up", exist: "Already have an account?", slogan: "Work, work more, work forever!" };
@@ -53,9 +53,13 @@ function Login() {
 				});
 		}
 	}
-	function fastFill() {
+	function fastFillG() {
 		emailForm.current.value = "guest@gmail.com";
 		password.current.value = "IamHacker123";
+	}
+	function fastFillA() {
+		emailForm.current.value = "token@gmail.com";
+		password.current.value = "0123456789";
 	}
 	return (
 		<form onSubmit={requestAuth} className={[login ? "flex-row-reverse" : "flex-row", "select-none flex"].join(" ")}>
@@ -76,20 +80,17 @@ function Login() {
 						<input ref={emailForm} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" placeholder="Email" type="email" spellCheck="false" required />
 						<input ref={password} className="text-center w-60 p-1 border border-solid border-slate-300 outline-none placeholder:text-xs selection:bg-slate-300 text-slate-500 focus:placeholder:text-transparent" minLength="10" maxLength="20" placeholder="Password" type="password" spellCheck="false" required />
 					</div>
-					<div className="flex gap-4 items-center">
-						<button className="bg-amber-400 text-sm rounded-sm px-5 py-1" onClick={fastFill} type="button">
-							Login as Guest
-						</button>
-						<button className="text-sm px-5 py-1 rounded-sm bg-slate-300 cursor-pointer hover:bg-slate-200" type="submit">
-							Done!
-						</button>
+					<div className="flex flex-wrap gap-4 items-center">
+						<input value="Guest" className="bg-amber-300 rounded-sm px-5 py-1 text-sm cursor-pointer hover:bg-amber-200 active:bg-amber-300 transition-colors" onClick={fastFillG} type="button" />
+						<input value="Admin" className="bg-rose-300 rounded-sm px-5 py-1 text-sm cursor-pointer hover:bg-rose-200 active:bg-rose-300 transition-colors" onClick={fastFillA} type="button" />
+						<input value="Done!" className="bg-slate-300 rounded-sm px-5 py-1 text-sm cursor-pointer hover:bg-slate-200 active:bg-slate-300 transition-colors" type="submit" />
 					</div>
 					<div className="flex gap-1 items-center">
 						<div className="flex gap-1 items-center text-slate-400">
 							<div>{formName.exist}</div>
 							<BsArrowRightShort />
 						</div>
-						<div onClick={() => SetLogin((pre) => (pre ? false : true))} className="text-sm font-bold text-sky-500 hover:text-sky-600">
+						<div onClick={() => SetLogin((pre) => (pre ? false : true))} className="cursor-pointer text-sm font-bold text-sky-500 hover:text-sky-600">
 							{formName.main}!
 						</div>
 					</div>

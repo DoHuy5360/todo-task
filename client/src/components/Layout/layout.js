@@ -8,16 +8,18 @@ import { contextMenuContext } from "../Context/ContextMenuProvider.js";
 import { RefreshContext } from "../Context/RefreshContext.js";
 function Layout() {
 	const [showSidebar, setShowSidebar] = useState(false);
-	const { setShowContextMenu } = useContext(contextMenuContext);
+	const { showContextMenu, setShowContextMenu } = useContext(contextMenuContext);
 	useEffect(() => {
-		window.addEventListener("click", (event) => {
-			event.stopImmediatePropagation();
-			setShowContextMenu({
-				visible: false,
-				dataEvent: null,
+		if (showContextMenu.visible) {
+			window.addEventListener("click", (event) => {
+				event.stopImmediatePropagation();
+				setShowContextMenu({
+					visible: false,
+					dataEvent: null,
+				});
 			});
-		});
-	}, []);
+		}
+	}, [showContextMenu]);
 	return (
 		<Authentication>
 			<Router>

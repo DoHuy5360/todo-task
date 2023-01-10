@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import StatusColumn from "./components/StatusColumn/StatusColumn.js";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Card from "./components/Card/Card.js";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dialog from "./components/Dialog/Dialog.js";
 import ContextMenu from "./components/ContextMenu/ContextMenu.js";
 import ServerLoadingAnimation from "../../animation/ServerLoadingAnimation.js";
@@ -15,7 +15,6 @@ function Content() {
 	const [columns, setColumns] = useState([]);
 	const cookieBank = new COOKIES();
 	useEffect(() => {
-		console.log("render");
 		const token = cookieBank.give_me_value_of("token");
 		fetch(`${process.env.REACT_APP_DESTINATION_REQUEST}/${token}`)
 			.then((res) => res.json())

@@ -18,7 +18,7 @@ class COOKIES extends DATA_TYPE {
 					?.split("=")[1] || console.warn(`Invalid ${cookieName} name!`)
 			);
 		} else {
-			console.warn("give_me_value_of(cookieName) need passed one cookie name");
+			console.warn("give_me_value_of(cookieName) need passed one cookie name or this cookie not existing.");
 			return undefined;
 		}
 	}

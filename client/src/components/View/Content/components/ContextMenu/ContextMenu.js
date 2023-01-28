@@ -1,13 +1,15 @@
 import { useRef, useContext, memo } from "react";
 import { contextMenuContext } from "../../../../Context/ContextMenuProvider";
 import { dialogContext } from "../../../../Context/DialogContext";
+import { refreshContext } from "../../../../Context/RefreshContext";
 import { ChangeStatus } from "./components/ChangeStatus.js";
 function ContextMenu() {
 	// console.log("Context render");
 	const { setShowContextMenu, cardsIdContextMenu, showContextMenu } = useContext(contextMenuContext);
 	const { visible, dataEvent } = showContextMenu;
 	const { _id, status, title, description, colId } = cardsIdContextMenu;
-	const { setShowDialog, setContent, setDialogContent } = useContext(dialogContext);
+	const { setShowDialog, setDialogContent } = useContext(dialogContext);
+	const { setRefresh } = useContext(refreshContext);
 	const cntxtMenu = useRef();
 	if (dataEvent) {
 		cntxtMenu.current = {
@@ -23,7 +25,7 @@ function ContextMenu() {
 			}).then((res) => {
 				if (res.status === 200) {
 					alert("Delete successfully!");
-					setContent((pre) => {
+					setRefresh((pre) => {
 						return pre ? false : true;
 					});
 					setShowContextMenu({
